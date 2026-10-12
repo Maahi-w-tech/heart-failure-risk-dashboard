@@ -1,4 +1,4 @@
-# Mini-Project 36: Predicting Heart-Failure Events with Gradient Boosting
+# Mini-Project 36: Predicting Heart-Failure Events with Gradient Boosting + Gradient Descent Lab
 
 This project predicts whether a patient dies during the follow-up period using the **UCI Heart Failure Clinical Records Dataset**. It is intentionally designed to satisfy the supplied 100-point mini-project rubric without becoming unnecessarily complex.
 
@@ -9,7 +9,7 @@ This project predicts whether a patient dies during the follow-up period using t
 - `presentation.md` — 10-slide presentation outline with speaker notes.
 - `requirements.txt` — Python dependencies.
 - `results/` — generated metrics, tuning output, and figures after running the script.
-- `web/` — Vercel-ready interactive dashboard. It introduces the project, walks through the process, displays visual analysis, and then shows output results.
+- `web/` — Vercel-ready interactive Gradient Descent Lab. It visualizes the training loop, shows how patient inputs become a probability, and lets users replay the weight updates in the browser.
 
 ## Project objective
 
@@ -35,7 +35,7 @@ The dashboard is a static client-side app, so it does not need Python, a databas
 3. Use the default static settings (no build command; output is the `web` folder), or set the framework preset to **Other**.
 4. Deploy.
 
-The web flow is intentionally ordered as requested: **interactive explanation → data analysis visualizations → output results**. For the supplied demo dataset, the output table contains the completed model experiment with a recall-focused probability threshold of `0.35` rather than the default `0.50`. On this dataset, the Gradient Boosting recall increases from `0.474` at threshold `0.50` to `0.579` at threshold `0.35`, while precision changes from `0.900` to `0.846`. For an uploaded binary-target CSV, the browser trains local Majority, Logistic Regression, and Gradient Boosting models and calculates the output metrics directly using the same recall-focused threshold. The browser implementation is deterministic and educational; use `src/run_analysis.py` when exact scikit-learn parity is required.
+The web flow is intentionally ordered as **training loop → patient input → model output → algorithm glossary**. The dashboard uses a deliberately small, browser-side logistic-regression model trained with batch Gradient Descent. It exposes the standardized feature values, weights, weighted sum, sigmoid probability, cross-entropy loss, gradients, learning rate, threshold, and per-feature contributions so the full path from input to output is visible. The supplied demo uses six numeric predictors from the UCI dataset; a compatible uploaded binary-target CSV can be retrained locally. This browser implementation is deterministic and educational. The reproducible scikit-learn Gradient Boosting experiment remains available through `src/run_analysis.py`.
 
 ## Dataset source
 

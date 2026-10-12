@@ -3,27 +3,205 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Heart Failure Risk Lab</title>
+  <meta name="description" content="An interactive visual explanation of gradient descent for heart-failure risk prediction." />
+  <title>Gradient Descent Lab · Heart Failure Risk</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 </head>
 <body>
-  <header class="topbar"><div><span class="eyebrow">ML PRACTICAL · PROJECT 36</span><h1>Heart Failure Risk Lab</h1></div><span class="privacy">CSV stays in your browser</span></header>
-  <main>
-    <section class="hero card">
-      <div><span class="eyebrow">Interactive learning dashboard</span><h2>Predicting heart-failure events with Gradient Boosting</h2><p>Explore the problem first, inspect the data second, and review model results last. This order mirrors the project rubric and keeps the analysis understandable.</p></div>
-      <div class="upload-box"><label for="csvFile" class="button primary">Upload CSV file</label><input id="csvFile" type="file" accept=".csv,text/csv" /><button id="demoBtn" class="button secondary">Use demo results</button><small>Expected target: <code>DEATH_EVENT</code>. Uploaded data is processed locally and is never sent to a server.</small></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Gradient Descent Lab home">
+      <span class="brand-mark"><span></span><span></span><span></span></span>
+      <span><span class="eyebrow">ML EXPLAINER · PROJECT 36</span><strong>Gradient Descent Lab</strong></span>
+    </a>
+    <div class="top-actions">
+      <span class="privacy"><i></i> Runs in your browser</span>
+      <a class="top-link" href="#understand">How it works</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero panel">
+      <div class="hero-copy">
+        <span class="eyebrow">A visual walkthrough of one algorithm</span>
+        <h1>Watch the model learn,<br /><em>one small step at a time.</em></h1>
+        <p>Gradient descent adjusts model weights until its predictions become less wrong. Explore the training loop, send a patient through the model, and see exactly how an input becomes an output.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#learn">Start the walkthrough <span>↓</span></a>
+          <label for="csvFile" class="button ghost">Upload your CSV</label>
+          <input id="csvFile" type="file" accept=".csv,text/csv" />
+        </div>
+        <p class="privacy-note"><span>●</span> The supplied UCI dataset is loaded locally. Uploaded files never leave this browser.</p>
+      </div>
+      <div class="hero-visual" aria-label="The three stages of the model">
+        <div class="hero-orbit orbit-one"></div>
+        <div class="hero-orbit orbit-two"></div>
+        <div class="hero-model-card">
+          <div class="model-card-label"><span class="pulse-dot"></span> The model's job</div>
+          <div class="hero-equation">inputs <span>→</span> weights <span>→</span> risk</div>
+          <div class="hero-mini-bars"><span style="height: 42%"></span><span style="height: 68%"></span><span style="height: 31%"></span><span style="height: 82%"></span><span style="height: 55%"></span><span style="height: 72%"></span></div>
+          <div class="hero-result"><span>estimated event risk</span><b>0.38</b></div>
+        </div>
+        <div class="floating-tag tag-input"><b>01</b><span>patient inputs</span></div>
+        <div class="floating-tag tag-learn"><b>02</b><span>learn weights</span></div>
+        <div class="floating-tag tag-output"><b>03</b><span>model output</span></div>
+      </div>
     </section>
 
-    <nav class="stepper" aria-label="Project stages"><button class="step active" data-target="intro"><b>01</b><span>Understand</span></button><button class="step locked" data-target="analysis"><b>02</b><span>Analyze data</span></button><button class="step locked" data-target="results"><b>03</b><span>Review results</span></button></nav>
+    <nav class="section-nav" aria-label="Walkthrough sections">
+      <a class="nav-item active" href="#learn"><span>01</span><b>Learn</b><small>Train the weights</small></a>
+      <a class="nav-item" href="#predict"><span>02</span><b>Predict</b><small>Input → output</small></a>
+      <a class="nav-item" href="#understand"><span>03</span><b>Understand</b><small>Read the algorithm</small></a>
+    </nav>
 
-    <section id="intro" class="stage card"><div class="section-heading"><span class="eyebrow">Stage 1 · Explanation</span><h2>What this project does</h2></div><div class="grid three"><article><span class="number">01</span><h3>Validate</h3><p>Check rows, columns, missing values, duplicates, data types, and the class balance before modeling.</p></article><article><span class="number">02</span><h3>Model</h3><p>Use a stratified 80/20 split and compare a majority baseline, Logistic Regression, Decision Tree, and Gradient Boosting.</p></article><article><span class="number">03</span><h3>Evaluate</h3><p>Look beyond accuracy: recall, precision, F1, specificity, ROC-AUC, PR-AUC, and the confusion matrix explain the trade-offs.</p></article></div><div class="process"><h3>Analysis outline</h3><ol><li><b>Upload and validate data</b><span>Identify the binary target and confirm the dataset is usable.</span></li><li><b>Explore outcomes and predictors</b><span>Visualize the class distribution and numeric feature patterns.</span></li><li><b>Train comparable models</b><span>Tune Gradient Boosting without using the final test set.</span></li><li><b>Interpret carefully</b><span>Feature importance is predictive association, not causation or medical advice.</span></li></ol></div><div class="callout"><b>Experiment defaults:</b> 80% train / 20% test · stratified split · random seed 42 · event class = 1 · threshold = 0.50</div><button id="toAnalysis" class="button primary">Continue to data analysis →</button></section>
+    <section id="learn" class="panel section-panel">
+      <div class="section-heading split-heading">
+        <div>
+          <span class="eyebrow">01 · Training loop</span>
+          <h2>First, let gradient descent learn the weights</h2>
+          <p>The model starts with every weight at <strong>0</strong>. Each step measures its mistakes, calculates a gradient, and nudges the weights downhill toward a lower loss.</p>
+        </div>
+        <div class="dataset-pill"><span class="pulse-dot"></span><span id="datasetStatus">Loading the demo dataset…</span></div>
+      </div>
 
-    <section id="analysis" class="stage card hidden"><div class="section-heading"><span class="eyebrow">Stage 2 · Data analysis</span><h2>See what is inside the dataset</h2><p id="dataStatus">Load the supplied demo or upload your own CSV to populate these views.</p></div><div id="summaryCards" class="grid four"></div><div class="charts grid two"><article class="chart-card"><h3>Outcome distribution</h3><canvas id="outcomeChart"></canvas></article><article class="chart-card"><h3>Numeric feature distribution</h3><select id="featureSelect" aria-label="Choose a feature"></select><canvas id="featureChart"></canvas></article></div><div class="table-wrap"><h3>Data-quality summary</h3><table id="qualityTable"><thead><tr><th>Column</th><th>Type</th><th>Missing</th><th>Unique</th><th>Mean</th></tr></thead><tbody></tbody></table></div><button id="toResults" class="button primary">Continue to output results →</button></section>
+      <div class="algorithm-rail">
+        <div class="rail-step active"><span>1</span><div><b>Predict</b><small>make a probability</small></div></div>
+        <span class="rail-arrow">→</span>
+        <div class="rail-step"><span>2</span><div><b>Measure error</b><small>compare to the label</small></div></div>
+        <span class="rail-arrow">→</span>
+        <div class="rail-step"><span>3</span><div><b>Update</b><small>move weights downhill</small></div></div>
+        <span class="rail-arrow">↺</span>
+        <div class="rail-step loop-step"><span>4</span><div><b>Repeat</b><small>until loss is smaller</small></div></div>
+      </div>
 
-    <section id="results" class="stage card hidden"><div class="section-heading"><span class="eyebrow">Stage 3 · Output</span><h2>Model results and what they mean</h2><p id="resultStatus">The demo uses the completed Python experiment. Uploaded files receive a browser-side validation and model analysis.</p></div><div class="metric-banner"><div><span class="eyebrow">Primary model</span><strong id="primaryModelName">Gradient Boosting</strong><small id="primaryModelNote">Recall-focused threshold 0.35</small></div><div class="headline-metric"><b id="headlineAuc">0.899</b><span>ROC-AUC</span></div><div class="headline-metric"><b id="headlinePrauc">0.817</b><span>PR-AUC</span></div></div><div class="callout"><b>Medical-field setting:</b> This run uses a lower probability threshold of <strong>0.35</strong> to flag more possible events. That improves recall, but it also creates more false alarms. The threshold should be selected with clinical stakeholders, not by accuracy alone.</div><div class="table-wrap"><table id="resultsTable"><thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>Balanced accuracy</th><th>ROC-AUC</th><th>PR-AUC</th></tr></thead><tbody></tbody></table></div><div class="charts grid two"><article class="chart-card"><h3>Model comparison</h3><canvas id="modelChart"></canvas></article><article class="chart-card interpretation"><h3>What the numbers mean for this dataset</h3><ul id="interpretationList"></ul></article></div><div class="warning"><b>Important limitation:</b> This is an educational retrospective experiment. The <code>time</code> variable is follow-up duration and may contain information that would not be available in a real early-warning setting. Do not use this dashboard for diagnosis or treatment.</div><button id="restart" class="button secondary">Start over</button></section>
+      <div class="training-toolbar">
+        <div class="toolbar-status"><span class="status-kicker">CURRENT TRAINING STEP</span><strong>Iteration <span id="trainingIteration">0</span><small>/ 180</small></strong></div>
+        <div class="training-buttons">
+          <button id="resetTraining" class="button ghost small">Reset weights</button>
+          <button id="stepTraining" class="button secondary small">Step × 10</button>
+          <button id="playTraining" class="button primary small"><span class="play-icon">▶</span> Play training</button>
+        </div>
+        <label class="learning-rate">Learning rate <output id="learningRateValue">0.12</output><input id="learningRate" type="range" min="0.02" max="0.30" step="0.01" value="0.12" /></label>
+      </div>
+
+      <div class="training-grid">
+        <div class="training-explainer">
+          <div class="formula-card">
+            <span class="formula-label">THE UPDATE RULE</span>
+            <code>new weight = old weight − learning rate × gradient</code>
+            <p>The gradient points uphill — toward more error. Subtracting it takes a small step in the opposite direction.</p>
+          </div>
+          <div class="live-step-card">
+            <div class="live-step-top"><span class="live-dot"></span><b>Live calculation</b><span id="stepLabel">Weights are ready to learn</span></div>
+            <div class="calculation-row"><span>loss</span><strong id="lossValue">0.693</strong><small>lower is better</small></div>
+            <div class="calculation-row"><span>gradient size</span><strong id="gradientSize">0.000</strong><small>how hard to move</small></div>
+            <p id="stepExplanation">At the start, all weights are zero, so every patient receives a probability of 0.50. Press <b>Play training</b> to see the loss fall.</p>
+          </div>
+          <div class="mini-callout"><span>↗</span><p><b>Think of it like hiking downhill.</b> Loss is the height of the hill. The gradient tells the model which direction is uphill, so it walks the other way.</p></div>
+        </div>
+        <div class="chart-card large-chart">
+          <div class="chart-heading"><div><span class="chart-kicker">OBJECTIVE FUNCTION</span><h3>Loss gets smaller over time</h3></div><span class="chart-legend"><i class="legend-line"></i> cross-entropy loss</span></div>
+          <canvas id="lossChart" aria-label="Line chart showing loss decreasing over training iterations"></canvas>
+          <div class="chart-foot"><span>start: <b id="startLoss">0.693</b></span><span>current: <b id="currentLoss">0.693</b></span><span class="success-text">↓ lower = better predictions</span></div>
+        </div>
+      </div>
+
+      <div class="training-detail-grid">
+        <div class="chart-card parameter-chart">
+          <div class="chart-heading"><div><span class="chart-kicker">PARAMETER JOURNEY</span><h3>Watch one weight move</h3></div><select id="trackedFeature" aria-label="Choose a weight to track"></select></div>
+          <canvas id="weightChart" aria-label="Line chart showing a selected weight changing during training"></canvas>
+          <p class="chart-note">Every feature gets its own weight. A positive weight pushes the risk estimate up; a negative weight pulls it down.</p>
+        </div>
+        <div class="gradient-card">
+          <div class="chart-heading"><div><span class="chart-kicker">CURRENT DIRECTION</span><h3>What the gradient says</h3></div><span class="tiny-badge" id="gradientBadge">step 0</span></div>
+          <div id="gradientList" class="gradient-list"></div>
+          <div class="gradient-legend"><span><i class="up-key"></i> + gradient</span><span><i class="down-key"></i> − gradient</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="predict" class="panel section-panel predict-panel">
+      <div class="section-heading split-heading">
+        <div>
+          <span class="eyebrow">02 · Forward pass</span>
+          <h2>Now send one patient through the model</h2>
+          <p>Change an input or choose a case. The model combines the values with its learned weights, passes the result through a sigmoid, and returns a probability.</p>
+        </div>
+        <div class="model-status"><span class="check-mark">✓</span><span>Weights trained through <b id="trainedStepLabel">180</b> iterations</span></div>
+      </div>
+
+      <div class="case-strip">
+        <span class="case-label">TRY A CASE</span>
+        <button class="case-button active" data-case="typical"><span class="case-dot low"></span><b>Typical profile</b><small>lower-risk pattern</small></button>
+        <button class="case-button" data-case="higher"><span class="case-dot high"></span><b>Higher-risk profile</b><small>several risk signals</small></button>
+        <button class="case-button" data-case="borderline"><span class="case-dot mid"></span><b>Borderline profile</b><small>near the threshold</small></button>
+      </div>
+
+      <div class="predict-grid">
+        <div class="input-card">
+          <div class="card-heading"><div><span class="chart-kicker">MODEL INPUTS · x</span><h3>Patient feature values</h3></div><span class="edit-hint">drag to edit</span></div>
+          <div id="patientInputs" class="patient-inputs"></div>
+          <p class="input-note"><span>i</span> Values are used for learning visualization only. They are not a diagnosis or treatment recommendation.</p>
+        </div>
+
+        <div class="prediction-card">
+          <div class="card-heading"><div><span class="chart-kicker">MODEL OUTPUT</span><h3>Input becomes a prediction</h3></div><span class="output-live"><i></i> live</span></div>
+          <div class="prediction-flow">
+            <div class="flow-node input-node"><span class="flow-icon">x</span><b>Inputs</b><small>6 patient values</small></div>
+            <span class="flow-connector">+</span>
+            <div class="flow-node weight-node"><span class="flow-icon">w</span><b>Weights</b><small>learned by GD</small></div>
+            <span class="flow-connector">=</span>
+            <div class="flow-node sum-node"><span class="flow-icon">z</span><b>Weighted sum</b><small id="zValue">0.00</small></div>
+            <span class="flow-connector sigmoid-arrow">→</span>
+            <div class="flow-node probability-node"><span class="flow-icon">σ</span><b>Sigmoid</b><small>0 to 1</small></div>
+          </div>
+          <div class="output-result">
+            <div class="risk-meter"><div class="meter-track"><span id="riskMeterFill"></span><i id="riskMeterMarker"></i></div><div class="meter-labels"><span>0 · lower</span><span>1 · higher</span></div></div>
+            <div class="result-numbers"><div><span>estimated event risk</span><strong id="probabilityValue">50%</strong></div><div><span>classification threshold</span><label class="threshold-control"><input id="thresholdSlider" type="range" min="0.20" max="0.80" step="0.05" value="0.50" /><output id="thresholdValue">50%</output></label></div></div>
+            <div id="classificationValue" class="classification neutral">No event flag at this threshold</div>
+          </div>
+          <div class="prediction-formula"><code>p = σ(z) = 1 / (1 + e<sup>−z</sup>)</code><span id="predictionExplanation">The sigmoid turns any weighted sum into a probability between 0 and 1.</span></div>
+        </div>
+      </div>
+
+      <div class="contribution-card">
+        <div class="card-heading"><div><span class="chart-kicker">WHY THIS OUTPUT?</span><h3>Each input's contribution to z</h3></div><span class="contribution-note">standardized value × learned weight</span></div>
+        <div id="contributionList" class="contribution-list"></div>
+        <p class="contribution-foot"><span>+</span> pushes the weighted sum toward a higher event probability &nbsp; <span>−</span> pushes it lower. Contribution is model behavior, not causation.</p>
+      </div>
+    </section>
+
+    <section id="understand" class="panel section-panel understand-panel">
+      <div class="section-heading">
+        <span class="eyebrow">03 · Make sense of it</span>
+        <h2>The whole algorithm in four ideas</h2>
+        <p>Gradient descent is a repeated feedback loop. It does not “know” medicine; it only finds weights that reduce prediction error on the examples it was shown.</p>
+      </div>
+      <div class="four-ideas">
+        <article class="idea-card idea-input"><span class="idea-number">01</span><span class="idea-icon">x</span><h3>Start with inputs</h3><p>Each patient is represented by numbers such as age, ejection fraction, and serum creatinine.</p><code>x = [age, EF, creatinine, …]</code></article>
+        <article class="idea-card idea-weight"><span class="idea-number">02</span><span class="idea-icon">w</span><h3>Combine with weights</h3><p>The model multiplies every standardized input by a learned weight and adds them together.</p><code>z = b + Σ(wᵢ × xᵢ)</code></article>
+        <article class="idea-card idea-sigmoid"><span class="idea-number">03</span><span class="idea-icon">σ</span><h3>Turn it into probability</h3><p>The sigmoid squashes the weighted sum into a value between 0 and 1.</p><code>p = 1 / (1 + e<sup>−z</sup>)</code></article>
+        <article class="idea-card idea-update"><span class="idea-number">04</span><span class="idea-icon">↺</span><h3>Learn from error</h3><p>The gradient points toward more loss. Subtracting it updates the weights in a better direction.</p><code>w ← w − α × ∇L</code></article>
+      </div>
+
+      <div class="details-grid">
+        <div class="dataset-card">
+          <div class="card-heading"><div><span class="chart-kicker">DATA USED IN THIS DEMO</span><h3>A small, inspectable experiment</h3></div><span class="source-badge">UCI dataset</span></div>
+          <div id="datasetCards" class="dataset-stats"></div>
+          <p class="dataset-copy">The model learns from retrospective heart-failure clinical records. This lab uses six numeric features to keep the forward pass visible. Upload a compatible CSV to retrain it in your browser.</p>
+          <a class="text-link" href="https://archive.ics.uci.edu/dataset/519/heart+failure+clinical+records" target="_blank" rel="noreferrer">View the dataset source ↗</a>
+        </div>
+        <div class="glossary-card">
+          <div class="card-heading"><div><span class="chart-kicker">QUICK GLOSSARY</span><h3>Words to remember</h3></div></div>
+          <dl class="glossary"><div><dt>Feature</dt><dd>One input value describing a patient.</dd></div><div><dt>Weight</dt><dd>How strongly a feature influences z.</dd></div><div><dt>Loss</dt><dd>A score for how wrong predictions are.</dd></div><div><dt>Learning rate</dt><dd>How large each weight update is.</dd></div></dl>
+        </div>
+      </div>
+
+      <div class="final-note"><span class="shield-icon">!</span><div><b>Educational model, not medical advice</b><p>This interactive demo is designed to make an algorithm understandable. It has not been clinically validated and must not be used for diagnosis, treatment, or decisions about a real person.</p></div></div>
+    </section>
   </main>
-  <footer>Heart Failure Clinical Records · UCI Machine Learning Repository · Built for Vercel static deployment</footer>
+
+  <footer><span>Heart Failure Clinical Records · Gradient Descent Lab</span><span>Built for learning · All calculations run client-side</span></footer>
   <script src="app.js"></script>
 </body>
 </html>

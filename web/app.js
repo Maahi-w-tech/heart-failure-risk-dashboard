@@ -1,23 +1,376 @@
-const demoMetrics=[['Majority baseline',.683,0,0,0,.5,.5,.317],['Logistic Regression',.817,.786,.579,.667,.753,.859,.757],['Decision Tree',.833,.846,.579,.688,.765,.863,.776],['Gradient Boosting · recall threshold 0.35',.833,.846,.579,.688,.765,.899,.817]];
-let state={demo:true,rows:null,target:'DEATH_EVENT',charts:{},uploadedMetrics:null};
-const $=id=>document.getElementById(id); const fmt=n=>n==='—'?'—':Number(n).toFixed(3); const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-function switchStage(id){document.querySelectorAll('.stage').forEach(x=>x.classList.toggle('hidden',x.id!==id));document.querySelectorAll('.step').forEach(x=>x.classList.toggle('active',x.dataset.target===id));window.scrollTo({top:0,behavior:'smooth'});}
-function setUnlocked(){document.querySelectorAll('.step').forEach(x=>x.classList.remove('locked'));}
-function csvParse(text){const lines=text.trim().split(/\r?\n/).filter(Boolean);if(lines.length<2)throw Error('The CSV must contain a header and at least one data row.');const parseLine=line=>{const out=[];let cur='',quoted=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'&&line[i+1]==='"'){cur+='"';i++;}else if(ch==='"')quoted=!quoted;else if(ch===','&&!quoted){out.push(cur.trim());cur='';}else cur+=ch;}out.push(cur.trim());return out;};const headers=parseLine(lines[0]).map(x=>x.replace(/^"|"$/g,''));return lines.slice(1).map(line=>{const vals=parseLine(line);return Object.fromEntries(headers.map((h,i)=>[h,(vals[i]||'').replace(/^"|"$/g,'')]));});}
-function targetNumber(value, classes){const s=String(value??'').trim().toLowerCase();if(['0','no','false','negative','survived','survival','none','alive'].includes(s))return 0;if(['1','yes','true','positive','death','event','dead'].includes(s))return 1;return classes.indexOf(value)===1?1:0;}
-function seededShuffle(a){let seed=42;for(let i=a.length-1;i>0;i--){seed=(seed*1664525+1013904223)>>>0;const j=seed%(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
-function splitData(rows,y){const pos=[],neg=[];y.forEach((v,i)=>(v?pos:neg).push(i));seededShuffle(pos);seededShuffle(neg);const cut=n=>Math.max(1,Math.round(n*.2));const test=pos.slice(0,cut(pos.length)).concat(neg.slice(0,cut(neg.length)));seededShuffle(test);const testSet=new Set(test);return {train:rows.map((_,i)=>i).filter(i=>!testSet.has(i)),test};}
-function renderInterpretation(resultRows){const primary=resultRows[resultRows.length-1];const name=primary[0],m=state.demo?{accuracy:.833,precision:.846,recall:.579,f1:.688,balanced_accuracy:.765,roc_auc:.899,pr_auc:.817,tn:39,fp:2,fn:8,tp:11}:primary[1];const comparison=resultRows.slice(0,-1).map(x=>[x[0],x[1]]);const bestRecall=comparison.reduce((best,x)=>x[1].recall>best[1].recall?x:best,primary);const bullets=[`The ${name} correctly classified ${(m.accuracy*100).toFixed(1)}% of the held-out patients. This is the overall accuracy, so it should not be read alone.`,`It detected ${m.tp} of ${m.tp+m.fn} positive events: recall (sensitivity) is ${(m.recall*100).toFixed(1)}%. In practical terms, ${m.fn} positive cases were missed at the 0.35 threshold.`,`When the model predicted an event, it was correct ${(m.precision*100).toFixed(1)}% of the time. It produced ${m.fp} false positive predictions and ${m.tn} correct negative predictions.`,`The model's ROC-AUC is ${m.roc_auc.toFixed(3)} and PR-AUC is ${m.pr_auc.toFixed(3)}. These summarize ranking quality across thresholds; they are not a percentage certainty for any one patient.`,`Compared with the available alternatives, ${bestRecall[0]} has the highest recall in this run (${(bestRecall[1].recall*100).toFixed(1)}%). This means the preferred model depends on whether detecting more events or reducing false alarms is more important.`];$('interpretationList').innerHTML=bullets.map(x=>`<li>${x}</li>`).join('');$('primaryModelName').textContent=name;$('primaryModelNote').textContent='Recall-focused threshold 0.35';}
-function standardize(train,test){const p=train[0].length,mu=[],sd=[];for(let j=0;j<p;j++){const m=train.reduce((a,r)=>a+r[j],0)/train.length;const s=Math.sqrt(train.reduce((a,r)=>a+(r[j]-m)**2,0)/train.length)||1;mu.push(m);sd.push(s);}const apply=a=>a.map(r=>r.map((v,j)=>(v-mu[j])/sd[j]));return [apply(train),apply(test)];}
-function sigmoid(z){return 1/(1+Math.exp(-Math.max(-35,Math.min(35,z))));}
-function logistic(train,y){const p=train[0].length,w=Array(p+1).fill(0);for(let it=0;it<900;it++){const g=Array(p+1).fill(0);train.forEach((r,i)=>{const q=sigmoid(w[0]+r.reduce((a,v,j)=>a+w[j+1]*v,0)),e=q-y[i];g[0]+=e;r.forEach((v,j)=>g[j+1]+=e*v);});w.forEach((_,j)=>w[j]-=.035*g[j]/train.length);}return x=>sigmoid(w[0]+x.reduce((a,v,j)=>a+w[j+1]*v,0));}
-function stump(train,residual){let best={err:Infinity};for(let j=0;j<train[0].length;j++){const values=[...new Set(train.map(r=>r[j]))].sort((a,b)=>a-b);const steps=values.length>18?18:values.length-1;for(let k=1;k<=steps;k++){const threshold=values[Math.floor(k*values.length/(steps+1))];const left=[],right=[];train.forEach((r,i)=>(r[j]<=threshold?left:right).push(residual[i]));if(!left.length||!right.length)continue;const lm=left.reduce((a,v)=>a+v,0)/left.length,rm=right.reduce((a,v)=>a+v,0)/right.length;const err=left.reduce((a,v)=>a+(v-lm)**2,0)+right.reduce((a,v)=>a+(v-rm)**2,0);if(err<best.err)best={err,j,threshold,lm,rm};}}return best;}
-function boosting(train,y){const base=y.reduce((a,v)=>a+v,0)/y.length,trees=[];let current=Array(y.length).fill(base);for(let it=0;it<70;it++){const residual=y.map((v,i)=>v-current[i]),tree=stump(train,residual);if(!tree.j&&tree.j!==0)break;trees.push(tree);current=current.map((v,i)=>v+.06*(train[i][tree.j]<=tree.threshold?tree.lm:tree.rm));}return x=>Math.max(0,Math.min(1,base+trees.reduce((a,t)=>a+.06*(x[t.j]<=t.threshold?t.lm:t.rm),0)));}
-function metrics(y,prob,threshold=.35){const pred=prob.map(v=>v>=threshold?1:0);let tp=0,tn=0,fp=0,fn=0;y.forEach((v,i)=>v?(pred[i]?tp++:fn++):(pred[i]?fp++:tn++));const precision=tp/(tp+fp)||0,recall=tp/(tp+fn)||0,accuracy=(tp+tn)/y.length,specificity=tn/(tn+fp)||0;const sorted=y.map((v,i)=>[prob[i],v]).sort((a,b)=>b[0]-a[0]);let pos=y.filter(Boolean).length,neg=y.length-pos,seenPos=0,seenNeg=0,auc=0;sorted.forEach(([,v])=>v?seenPos++:(auc+=seenPos,seenNeg++));auc=pos&&neg?auc/(pos*neg):.5;let pr=0,prevR=0;sorted.forEach(([,v],i)=>{const p=sorted.slice(0,i+1).filter(x=>x[1]).length/(i+1),r=sorted.slice(0,i+1).filter(x=>x[1]).length/(pos||1);pr+=(r-prevR)*p;prevR=r;});return {accuracy,precision,recall,f1:2*precision*recall/(precision+recall)||0,specificity,balanced_accuracy:(recall+specificity)/2,roc_auc:auc,pr_auc:pr,tn,fp,fn,tp,threshold};}
-function trainUploaded(rows,target){const headers=Object.keys(rows[0]),classes=[...new Set(rows.map(r=>r[target]))];if(classes.length!==2)throw Error(`Target ${target} must contain exactly two classes.`);const numeric=headers.filter(h=>h!==target&&rows.every(r=>r[h]!==''&&!isNaN(Number(r[h]))));if(!numeric.length)throw Error('No numeric predictor columns were found.');const usable=rows.filter(r=>numeric.every(h=>r[h]!==''&&Number.isFinite(Number(r[h]))));const X=usable.map(r=>numeric.map(h=>Number(r[h]))),y=usable.map(r=>targetNumber(r[target],classes));const split=splitData(usable,y),tr=split.train,te=split.test;const trainX=tr.map(i=>X[i]),testX=te.map(i=>X[i]),trainY=tr.map(i=>y[i]),testY=te.map(i=>y[i]);const [scaledTr,scaledTe]=standardize(trainX,testX),models=[];const positive=y.filter(Boolean).length;models.push(['Majority baseline',metrics(testY,testY.map(()=>positive/y.length),.35)]);const log=logistic(scaledTr,trainY);models.push(['Logistic Regression · recall threshold 0.35',metrics(testY,scaledTe.map(log),.35)]);const boost=boosting(trainX,trainY);models.push(['Gradient Boosting · recall threshold 0.35',metrics(testY,testX.map(boost),.35)]);return {models,rows:usable,target,numeric,positive,usableCount:usable.length,testCount:te.length};}
-function renderMetrics(){const rows=state.demo?demoMetrics:state.uploadedMetrics.map(([name,m])=>[name,m.accuracy,m.precision,m.recall,m.f1,m.balanced_accuracy,m.roc_auc,m.pr_auc]);$('resultsTable').querySelector('tbody').innerHTML=rows.map(r=>`<tr>${r.map((v,i)=>`<td>${i?fmt(v):`<b>${esc(v)}</b>`}</td>`).join('')}</tr>`).join('');if(state.charts.model)state.charts.model.destroy();state.charts.model=new Chart($('modelChart'),{type:'bar',data:{labels:rows.map(x=>x[0]),datasets:[{label:'Recall',data:rows.map(x=>Number(x[3])||0),backgroundColor:'#275df5'},{label:'PR-AUC',data:rows.map(x=>Number(x[7])||0),backgroundColor:'#13b8a6'}]},options:{responsive:true,scales:{y:{min:0,max:1}}}});if(state.demo){$('headlineAuc').textContent='.899';$('headlinePrauc').textContent='.817';renderInterpretation(rows.map(r=>[r[0],{accuracy:r[1],precision:r[2],recall:r[3],f1:r[4],balanced_accuracy:r[5],roc_auc:r[6],pr_auc:r[7],tn:r[0]==='Tuned Gradient Boosting'?40:0,fp:r[0]==='Tuned Gradient Boosting'?1:0,fn:r[0]==='Tuned Gradient Boosting'?10:0,tp:r[0]==='Tuned Gradient Boosting'?9:0}]));}else{const m=state.uploadedMetrics[state.uploadedMetrics.length-1][1];$('headlineAuc').textContent=fmt(m.roc_auc);$('headlinePrauc').textContent=fmt(m.pr_auc);renderInterpretation(state.uploadedMetrics);}}
-function drawOutcome(rows,target){const vals=rows.map(r=>targetNumber(r[target],[...new Set(rows.map(x=>x[target]))]));const pos=vals.filter(Boolean).length;if(state.charts.outcome)state.charts.outcome.destroy();state.charts.outcome=new Chart($('outcomeChart'),{type:'doughnut',data:{labels:[`No event (${rows.length-pos})`,`Event (${pos})`],datasets:[{data:[rows.length-pos,pos],backgroundColor:['#275df5','#f06464']}]},options:{plugins:{legend:{position:'bottom'}}}})}
-function drawFeature(feature){if(!feature||!state.rows)return;const vals=state.rows.map(r=>Number(r[feature])).filter(Number.isFinite),bins=6,min=Math.min(...vals),max=Math.max(...vals),step=(max-min||1)/bins,counts=Array(bins).fill(0);vals.forEach(v=>counts[Math.min(bins-1,Math.floor((v-min)/step))]++);if(state.charts.feature)state.charts.feature.destroy();state.charts.feature=new Chart($('featureChart'),{type:'bar',data:{labels:counts.map((_,i)=>`${(min+i*step).toFixed(1)}–${(min+(i+1)*step).toFixed(1)}`),datasets:[{label:feature,data:counts,backgroundColor:'#13b8a6'}]},options:{plugins:{legend:{display:false}}}})}
-function analyze(rows){state.rows=rows;const headers=Object.keys(rows[0]);state.target=headers.find(h=>/death.?event|target|outcome|label|class/i.test(h))||headers[headers.length-1];const nums=headers.filter(h=>rows.some(r=>r[h]!==''&&!isNaN(Number(r[h]))));const targetVals=rows.map(r=>r[state.target]);const classes=[...new Set(targetVals)],positive=targetVals.filter(x=>targetNumber(x,classes)).length,missing=rows.reduce((n,r)=>n+headers.filter(h=>!r[h]).length,0);const result=trainUploaded(rows,state.target);state.uploadedMetrics=result.models;$('dataStatus').textContent=`${rows.length} rows loaded · target detected as ${state.target} · ${positive} positive events · ${missing} missing cells`;$('summaryCards').innerHTML=[['Rows',rows.length],['Columns',headers.length],['Positive events',positive],['Missing cells',missing]].map(x=>`<div class="metric"><b>${x[1]}</b><span>${x[0]}</span></div>`).join('');$('featureSelect').innerHTML=nums.filter(h=>h!==state.target).map(h=>`<option>${esc(h)}</option>`).join('');$('qualityTable').querySelector('tbody').innerHTML=headers.map(h=>{const vals=rows.map(r=>r[h]).filter(Boolean),numeric=vals.length&&vals.every(v=>!isNaN(Number(v)));const mean=numeric?(vals.reduce((a,v)=>a+Number(v),0)/vals.length).toFixed(2):'—';return `<tr><td>${esc(h)}</td><td>${numeric?'Numeric':'Text'}</td><td>${rows.length-vals.length}</td><td>${new Set(vals).size}</td><td>${mean}</td></tr>`}).join('');drawOutcome(rows,state.target);drawFeature(nums.find(h=>h!==state.target));$('resultStatus').textContent=`Results calculated in your browser from ${result.usableCount} usable rows (${result.testCount} held out for testing).`;$('dataStatus').textContent+=` · ${result.usableCount} usable numeric rows`;}
-async function loadDemo(){state.demo=true;setUnlocked();$('resultStatus').textContent='Demo results from the completed Python experiment on the UCI dataset.';try{const response=await fetch('data/heart_failure_clinical_records_dataset.csv');if(!response.ok)throw Error('Bundled dataset unavailable');const rows=csvParse(await response.text());analyze(rows);}catch(error){$('dataStatus').textContent='Demo dataset: 299 rows · 13 columns · DEATH_EVENT target · 96 positive events · 0 missing values';}switchStage('intro');renderMetrics();}
-$('demoBtn').onclick=loadDemo;$('toAnalysis').onclick=()=>{setUnlocked();switchStage('analysis')};$('toResults').onclick=()=>{switchStage('results')};$('restart').onclick=()=>switchStage('intro');$('featureSelect').onchange=()=>drawFeature($('featureSelect').value);$('csvFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{try{const rows=csvParse(reader.result);if(!rows.length)throw Error('No rows found.');state.demo=false;analyze(rows);setUnlocked();renderMetrics();switchStage('intro')}catch(err){alert(`Could not analyze CSV: ${err.message}`)}};reader.readAsText(f)};loadDemo();
+/*
+ * Gradient Descent Lab
+ * --------------------
+ * This is intentionally written without a framework so every part of the
+ * learning loop is visible: standardize inputs, calculate a sigmoid, measure
+ * cross-entropy loss, calculate the gradient, and update the weights.
+ */
+
+const FEATURE_LIBRARY = [
+  {key: 'age', label: 'Age', min: 40, max: 100, step: 1, decimals: 0, unit: 'years', help: 'patient age'},
+  {key: 'ejection_fraction', label: 'Ejection fraction', min: 10, max: 80, step: 1, decimals: 0, unit: '%', help: 'heart pumping percentage'},
+  {key: 'serum_creatinine', label: 'Serum creatinine', min: .4, max: 9.5, step: .1, decimals: 1, unit: 'mg/dL', help: 'kidney function marker'},
+  {key: 'serum_sodium', label: 'Serum sodium', min: 110, max: 150, step: 1, decimals: 0, unit: 'mEq/L', help: 'blood sodium level'},
+  {key: 'time', label: 'Follow-up time', min: 1, max: 300, step: 1, decimals: 0, unit: 'days', help: 'observed follow-up duration'},
+  {key: 'platelets', label: 'Platelets', min: 25000, max: 850000, step: 1000, decimals: 0, unit: '/µL', help: 'platelet count'}
+];
+
+const CASES = {
+  typical: {age: 52, ejection_fraction: 48, serum_creatinine: .8, serum_sodium: 140, time: 230, platelets: 270000},
+  higher: {age: 82, ejection_fraction: 20, serum_creatinine: 2.6, serum_sodium: 128, time: 24, platelets: 155000},
+  borderline: {age: 67, ejection_fraction: 34, serum_creatinine: 1.3, serum_sodium: 135, time: 105, platelets: 230000}
+};
+
+const state = {
+  rows: [],
+  target: 'DEATH_EVENT',
+  classes: [0, 1],
+  featureDefs: FEATURE_LIBRARY,
+  patient: {...CASES.typical},
+  activeCase: 'typical',
+  dataset: null,
+  model: null,
+  history: [],
+  iteration: 0,
+  maxIterations: 180,
+  learningRate: .12,
+  playing: false,
+  playTimer: null,
+  charts: {}
+};
+
+const $ = id => document.getElementById(id);
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const sigmoid = value => 1 / (1 + Math.exp(-clamp(value, -35, 35)));
+const fmt = (value, decimals = 3) => Number.isFinite(Number(value)) ? Number(value).toFixed(decimals) : '—';
+const pct = value => `${Math.round(clamp(Number(value) || 0, 0, 1) * 100)}%`;
+const esc = value => String(value).replace(/[&<>"']/g, char => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[char]));
+
+function csvParse(text) {
+  const lines = text.trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length < 2) throw new Error('The CSV must contain a header and at least one data row.');
+  const parseLine = line => {
+    const output = [];
+    let current = '';
+    let quoted = false;
+    for (let i = 0; i < line.length; i += 1) {
+      const char = line[i];
+      if (char === '"' && line[i + 1] === '"') { current += '"'; i += 1; }
+      else if (char === '"') quoted = !quoted;
+      else if (char === ',' && !quoted) { output.push(current.trim()); current = ''; }
+      else current += char;
+    }
+    output.push(current.trim());
+    return output.map(value => value.replace(/^"|"$/g, ''));
+  };
+  const headers = parseLine(lines[0]);
+  return lines.slice(1).map(line => {
+    const values = parseLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, values[index] || '']));
+  });
+}
+
+function targetNumber(value, classes) {
+  const normalized = String(value ?? '').trim().toLowerCase();
+  if (['0', 'no', 'false', 'negative', 'survived', 'survival', 'none', 'alive'].includes(normalized)) return 0;
+  if (['1', 'yes', 'true', 'positive', 'death', 'event', 'dead'].includes(normalized)) return 1;
+  return classes.indexOf(value) === 1 ? 1 : Number(value) > 0 ? 1 : 0;
+}
+
+function detectTarget(headers) {
+  return headers.find(header => /death.?event|target|outcome|label|class/i.test(header)) || headers[headers.length - 1];
+}
+
+function numeric(value) {
+  return value !== '' && Number.isFinite(Number(value));
+}
+
+function getFeatureDefs(rows, target) {
+  const headers = Object.keys(rows[0] || {});
+  const known = FEATURE_LIBRARY.filter(feature => headers.includes(feature.key) && rows.some(row => numeric(row[feature.key])));
+  if (known.length >= 3) return known;
+  return headers.filter(header => header !== target && rows.some(row => numeric(row[header]))).slice(0, 6).map((key, index) => ({
+    key, label: key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()), min: 0, max: 100, step: 1, decimals: 1, unit: '', help: `numeric feature ${index + 1}`
+  }));
+}
+
+function featureValue(feature, raw) {
+  const value = Number(raw);
+  return Number.isFinite(value) ? value : (feature.min + feature.max) / 2;
+}
+
+function displayFeatureValue(feature, value) {
+  const decimals = feature.decimals ?? 1;
+  const formatted = Number(value).toLocaleString(undefined, {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
+  return `${formatted}${feature.unit ? ` ${feature.unit}` : ''}`;
+}
+
+function prepareDataset(rows, target, featureDefs) {
+  const classes = [...new Set(rows.map(row => row[target]))];
+  const usable = rows.filter(row => featureDefs.every(feature => numeric(row[feature.key])) && row[target] !== '');
+  if (classes.length !== 2 || usable.length < 10) throw new Error('The target needs two classes and at least 10 complete numeric rows.');
+  const raw = usable.map(row => featureDefs.map(feature => Number(row[feature.key])));
+  const y = usable.map(row => targetNumber(row[target], classes));
+  const means = featureDefs.map((_, index) => raw.reduce((sum, row) => sum + row[index], 0) / raw.length);
+  const sds = featureDefs.map((_, index) => Math.sqrt(raw.reduce((sum, row) => sum + (row[index] - means[index]) ** 2, 0) / raw.length) || 1);
+  const X = raw.map(row => [1, ...row.map((value, index) => (value - means[index]) / sds[index])]);
+  return {usable, raw, y, X, means, sds, classes};
+}
+
+function dot(left, right) {
+  return left.reduce((sum, value, index) => sum + value * right[index], 0);
+}
+
+function modelLoss(params, dataset) {
+  const tiny = 1e-12;
+  return dataset.X.reduce((sum, row, index) => {
+    const probability = clamp(sigmoid(dot(params, row)), tiny, 1 - tiny);
+    return sum - (dataset.y[index] * Math.log(probability) + (1 - dataset.y[index]) * Math.log(1 - probability));
+  }, 0) / dataset.X.length;
+}
+
+function gradients(params, dataset) {
+  const values = Array(params.length).fill(0);
+  dataset.X.forEach((row, index) => {
+    const error = sigmoid(dot(params, row)) - dataset.y[index];
+    row.forEach((value, column) => { values[column] += error * value; });
+  });
+  return values.map(value => value / dataset.X.length);
+}
+
+function gradientSize(values) {
+  return Math.sqrt(values.reduce((sum, value) => sum + value ** 2, 0));
+}
+
+function recordHistory() {
+  const params = state.model.params;
+  const currentGradients = gradients(params, state.dataset);
+  state.history.push({iteration: state.iteration, params: [...params], gradients: currentGradients, loss: modelLoss(params, state.dataset)});
+}
+
+function resetTraining(render = true) {
+  stopPlaying();
+  state.iteration = 0;
+  state.model = {params: Array(state.featureDefs.length + 1).fill(0)};
+  state.history = [];
+  recordHistory();
+  if (render) renderAll();
+}
+
+function trainStep(amount = 1, render = true) {
+  if (!state.dataset || !state.model) return;
+  for (let step = 0; step < amount && state.iteration < state.maxIterations; step += 1) {
+    const currentGradients = gradients(state.model.params, state.dataset);
+    state.model.params = state.model.params.map((weight, index) => weight - state.learningRate * currentGradients[index]);
+    state.iteration += 1;
+    recordHistory();
+  }
+  if (state.iteration >= state.maxIterations) stopPlaying();
+  if (render) renderAll();
+}
+
+function stopPlaying() {
+  if (state.playTimer) window.clearInterval(state.playTimer);
+  state.playTimer = null;
+  state.playing = false;
+  const button = $('playTraining');
+  if (button) button.innerHTML = '<span class="play-icon">▶</span> Play training';
+}
+
+function playTraining() {
+  if (!state.dataset) return;
+  if (state.iteration >= state.maxIterations) resetTraining(false);
+  if (state.playing) { stopPlaying(); renderTraining(); return; }
+  state.playing = true;
+  $('playTraining').innerHTML = '<span class="play-icon">Ⅱ</span> Pause training';
+  state.playTimer = window.setInterval(() => {
+    trainStep(3);
+    if (state.iteration >= state.maxIterations) stopPlaying();
+  }, 55);
+}
+
+function renderLossChart() {
+  if (!window.Chart) return;
+  if (state.charts.loss) state.charts.loss.destroy();
+  state.charts.loss = new Chart($('lossChart'), {
+    type: 'line',
+    data: {labels: state.history.map(point => point.iteration), datasets: [{data: state.history.map(point => point.loss), borderColor: '#3867ee', backgroundColor: '#3867ee16', borderWidth: 2.5, pointRadius: 0, fill: true, tension: .25}]},
+    options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {display: false}, tooltip: {displayColors: false, callbacks: {label: context => ` loss: ${fmt(context.parsed.y)}`}}}, scales: {x: {title: {display: true, text: 'training iteration', color: '#8b98ac', font: {size: 10}}, grid: {display: false}, ticks: {color: '#8b98ac', maxTicksLimit: 7}}, y: {beginAtZero: false, title: {display: true, text: 'cross-entropy loss', color: '#8b98ac', font: {size: 10}}, grid: {color: '#edf0f5'}, ticks: {color: '#8b98ac', maxTicksLimit: 5}}}}
+  });
+}
+
+function renderWeightChart() {
+  if (!window.Chart || !state.history.length) return;
+  if (state.charts.weight) state.charts.weight.destroy();
+  const featureIndex = Math.max(0, Number($('trackedFeature').value || 0));
+  const feature = state.featureDefs[featureIndex];
+  state.charts.weight = new Chart($('weightChart'), {
+    type: 'line',
+    data: {labels: state.history.map(point => point.iteration), datasets: [{label: feature?.label || 'weight', data: state.history.map(point => point.params[featureIndex + 1]), borderColor: '#12a99b', backgroundColor: '#12b7a514', borderWidth: 2, pointRadius: 0, fill: true, tension: .24}]},
+    options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {display: false}}, scales: {x: {grid: {display: false}, ticks: {color: '#8b98ac', maxTicksLimit: 6}}, y: {grid: {color: '#edf0f5'}, ticks: {color: '#8b98ac', maxTicksLimit: 5}}}}
+  });
+}
+
+function renderTraining() {
+  if (!state.history.length) return;
+  const latest = state.history[state.history.length - 1];
+  const size = gradientSize(latest.gradients);
+  $('trainingIteration').textContent = state.iteration;
+  $('trainedStepLabel').textContent = state.iteration;
+  $('lossValue').textContent = fmt(latest.loss);
+  $('currentLoss').textContent = fmt(latest.loss);
+  $('startLoss').textContent = fmt(state.history[0].loss);
+  $('gradientSize').textContent = fmt(size);
+  $('gradientBadge').textContent = `step ${state.iteration}`;
+  $('stepLabel').textContent = state.iteration === 0 ? 'Weights are ready to learn' : state.iteration >= state.maxIterations ? 'Training is complete' : 'Weights just moved downhill';
+  $('stepExplanation').innerHTML = state.iteration === 0
+    ? 'At the start, all weights are zero, so every patient receives a probability of 0.50. Press <b>Play training</b> to see the loss fall.'
+    : `The model used the gradient to update ${state.featureDefs.length} feature weights. Its average error is now <b>${fmt(latest.loss)}</b>. ${state.iteration >= state.maxIterations ? 'Try a case below to use the learned weights.' : 'Keep going to watch it settle.'}`;
+  const gradientMax = Math.max(...latest.gradients.slice(1).map(Math.abs), .001);
+  $('gradientList').innerHTML = state.featureDefs.map((feature, index) => {
+    const value = latest.gradients[index + 1];
+    const width = Math.max(3, Math.abs(value) / gradientMax * 50);
+    return `<div class="gradient-row"><label title="${esc(feature.label)}">${esc(feature.label)}</label><div class="gradient-track"><span class="gradient-center"></span><i class="${value >= 0 ? 'positive' : 'negative'}" style="width:${width}%"></i></div><span class="gradient-value">${value >= 0 ? '+' : ''}${fmt(value)}</span></div>`;
+  }).join('');
+  const trackedValue = Number($('trackedFeature').value || 0);
+  $('trackedFeature').value = String(Math.min(trackedValue, Math.max(0, state.featureDefs.length - 1)));
+  renderLossChart();
+  renderWeightChart();
+}
+
+function renderPatientInputs() {
+  $('patientInputs').innerHTML = state.featureDefs.map((feature, index) => {
+    const value = state.patient[feature.key] ?? (feature.min + feature.max) / 2;
+    return `<div class="patient-field"><label for="input-${esc(feature.key)}"><span>${esc(feature.label)}</span><output id="output-${esc(feature.key)}">${esc(displayFeatureValue(feature, value))}</output></label><input id="input-${esc(feature.key)}" data-feature="${esc(feature.key)}" data-index="${index}" type="range" min="${feature.min}" max="${feature.max}" step="${feature.step}" value="${value}" /><small class="field-help">${esc(feature.help)}</small></div>`;
+  }).join('');
+  state.featureDefs.forEach(feature => {
+    const input = $(`input-${feature.key}`);
+    if (input) input.addEventListener('input', event => {
+      state.patient[feature.key] = Number(event.target.value);
+      $(`output-${feature.key}`).textContent = displayFeatureValue(feature, state.patient[feature.key]);
+      state.activeCase = null;
+      document.querySelectorAll('.case-button').forEach(button => button.classList.remove('active'));
+      renderPrediction();
+    });
+  });
+}
+
+function normalizedPatient() {
+  return state.featureDefs.map((feature, index) => (Number(state.patient[feature.key]) - state.dataset.means[index]) / state.dataset.sds[index]);
+}
+
+function renderPrediction() {
+  if (!state.dataset || !state.model) return;
+  const normalized = normalizedPatient();
+  const params = state.model.params;
+  const contributions = normalized.map((value, index) => value * params[index + 1]);
+  const z = params[0] + contributions.reduce((sum, value) => sum + value, 0);
+  const probability = sigmoid(z);
+  const threshold = Number($('thresholdSlider').value);
+  const flagged = probability >= threshold;
+  $('zValue').textContent = fmt(z, 2);
+  $('probabilityValue').textContent = pct(probability);
+  $('thresholdValue').textContent = pct(threshold);
+  $('riskMeterFill').style.width = `${probability * 100}%`;
+  $('riskMeterMarker').style.left = `${probability * 100}%`;
+  const classification = $('classificationValue');
+  classification.className = `classification ${flagged ? 'flag' : 'clear'}`;
+  classification.textContent = flagged ? 'Event flag at this threshold' : 'No event flag at this threshold';
+  $('predictionExplanation').textContent = flagged
+    ? `The probability is above the ${pct(threshold)} cutoff, so this example is flagged for an event.`
+    : `The probability is below the ${pct(threshold)} cutoff, so this example is not flagged for an event.`;
+  const maxContribution = Math.max(...contributions.map(Math.abs), .001);
+  $('contributionList').innerHTML = state.featureDefs.map((feature, index) => {
+    const value = contributions[index];
+    const width = Math.max(3, Math.abs(value) / maxContribution * 50);
+    return `<div class="contribution-row"><label title="${esc(feature.label)}">${esc(feature.label)}</label><div class="contribution-track"><i class="${value >= 0 ? 'positive' : 'negative'}" style="width:${width}%"></i></div><span class="contribution-value">${value >= 0 ? '+' : ''}${fmt(value, 2)}</span></div>`;
+  }).join('');
+}
+
+function renderDataset() {
+  const dataset = state.dataset;
+  if (!dataset) return;
+  const positive = dataset.y.filter(Boolean).length;
+  $('datasetStatus').textContent = `${dataset.usable.length} rows · ${state.featureDefs.length} visible features`;
+  $('datasetCards').innerHTML = [['Rows', dataset.usable.length], ['Features', state.featureDefs.length], ['Events', positive], ['Missing', state.rows.length - dataset.usable.length]].map(([label, value]) => `<div class="dataset-stat"><b>${value}</b><span>${label}</span></div>`).join('');
+}
+
+function renderAll() {
+  renderTraining();
+  renderPrediction();
+}
+
+function setCase(name) {
+  const preset = CASES[name];
+  if (!preset) return;
+  state.activeCase = name;
+  state.featureDefs.forEach(feature => {
+    const fallback = state.dataset.means[state.featureDefs.indexOf(feature)];
+    state.patient[feature.key] = clamp(preset[feature.key] ?? fallback, feature.min, feature.max);
+  });
+  renderPatientInputs();
+  document.querySelectorAll('.case-button').forEach(button => button.classList.toggle('active', button.dataset.case === name));
+  renderPrediction();
+}
+
+function loadRows(rows, isDemo = false) {
+  if (!rows.length) throw new Error('No rows were found.');
+  const headers = Object.keys(rows[0]);
+  state.target = detectTarget(headers);
+  state.featureDefs = getFeatureDefs(rows, state.target);
+  if (state.featureDefs.length < 3) throw new Error('At least three numeric predictor columns are needed.');
+  state.rows = rows;
+  state.dataset = prepareDataset(rows, state.target, state.featureDefs);
+  state.classes = state.dataset.classes;
+  state.patient = {};
+  state.featureDefs.forEach((feature, index) => {
+    const defaults = isDemo ? CASES.typical[feature.key] : state.dataset.means[index];
+    state.patient[feature.key] = clamp(defaults ?? state.dataset.means[index], feature.min, feature.max);
+  });
+  $('datasetStatus').textContent = isDemo ? 'Demo dataset ready' : 'Uploaded CSV ready';
+  $('trackedFeature').innerHTML = state.featureDefs.map((feature, index) => `<option value="${index}">${esc(feature.label)} weight</option>`).join('');
+  renderPatientInputs();
+  renderDataset();
+  resetTraining(false);
+  trainStep(state.maxIterations, false);
+  renderAll();
+}
+
+async function loadDemo() {
+  try {
+    const response = await fetch('data/heart_failure_clinical_records_dataset.csv');
+    if (!response.ok) throw new Error('Bundled dataset unavailable.');
+    loadRows(csvParse(await response.text()), true);
+  } catch (error) {
+    $('datasetStatus').textContent = 'Could not load demo dataset';
+    $('patientInputs').innerHTML = `<p class="input-note">${esc(error.message)} Upload the CSV to start the lab.</p>`;
+    $('stepExplanation').textContent = 'Upload the supplied CSV to activate the interactive training loop.';
+  }
+}
+
+function bindEvents() {
+  $('resetTraining').addEventListener('click', () => resetTraining());
+  $('stepTraining').addEventListener('click', () => trainStep(10));
+  $('playTraining').addEventListener('click', playTraining);
+  $('trackedFeature').addEventListener('change', renderWeightChart);
+  $('thresholdSlider').addEventListener('input', renderPrediction);
+  $('learningRate').addEventListener('input', event => {
+    state.learningRate = Number(event.target.value);
+    $('learningRateValue').textContent = state.learningRate.toFixed(2);
+    resetTraining();
+  });
+  document.querySelectorAll('.case-button').forEach(button => button.addEventListener('click', () => setCase(button.dataset.case)));
+  $('csvFile').addEventListener('change', event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try { loadRows(csvParse(reader.result), false); document.querySelector('#learn').scrollIntoView({behavior: 'smooth'}); }
+      catch (error) { window.alert(`Could not analyze CSV: ${error.message}`); }
+    };
+    reader.readAsText(file);
+  });
+}
+
+bindEvents();
+loadDemo();
