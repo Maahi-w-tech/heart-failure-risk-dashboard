@@ -1,0 +1,3812 @@
+{
+  "artifact": "actual-project-pipeline",
+  "generated_by": "src/run_analysis.py",
+  "dataset": {
+    "source_url": "https://archive.ics.uci.edu/static/public/519/heart+failure+clinical+records.zip",
+    "sha256": "9c73cea7468ff5d517801ec050fe9993da5912fce4b56f296f8df3b38dd75912",
+    "rows": 299,
+    "usable_rows": 299,
+    "columns": 13,
+    "feature_count": 12,
+    "target": "DEATH_EVENT",
+    "target_description": "1 indicates a recorded death event during follow-up; 0 indicates no recorded event.",
+    "positive_events": 96,
+    "negative_events": 203,
+    "missing_values": 0,
+    "duplicate_rows": 0,
+    "train_rows": 239,
+    "test_rows": 60,
+    "features": [
+      {
+        "name": "age",
+        "label": "Age",
+        "kind": "numeric",
+        "description": "Patient age in years.",
+        "missing": 0,
+        "unique": 47,
+        "min": 40.0,
+        "max": 95.0,
+        "mean": 60.83389297658862,
+        "median": 60.0,
+        "quantiles": {
+          "q1": 51.0,
+          "q3": 70.0
+        }
+      },
+      {
+        "name": "anaemia",
+        "label": "Anaemia",
+        "kind": "binary",
+        "description": "Binary anaemia indicator.",
+        "missing": 0,
+        "unique": 2,
+        "min": 0,
+        "max": 1,
+        "mean": 0.431438127090301,
+        "median": 0.0,
+        "categories": [
+          {
+            "value": 0,
+            "count": 170
+          },
+          {
+            "value": 1,
+            "count": 129
+          }
+        ]
+      },
+      {
+        "name": "creatinine_phosphokinase",
+        "label": "Creatinine Phosphokinase",
+        "kind": "numeric",
+        "description": "Blood creatinine phosphokinase level.",
+        "missing": 0,
+        "unique": 208,
+        "min": 23,
+        "max": 7861,
+        "mean": 581.8394648829432,
+        "median": 250.0,
+        "quantiles": {
+          "q1": 116.5,
+          "q3": 582.0
+        }
+      },
+      {
+        "name": "diabetes",
+        "label": "Diabetes",
+        "kind": "binary",
+        "description": "Binary diabetes indicator.",
+        "missing": 0,
+        "unique": 2,
+        "min": 0,
+        "max": 1,
+        "mean": 0.4180602006688963,
+        "median": 0.0,
+        "categories": [
+          {
+            "value": 0,
+            "count": 174
+          },
+          {
+            "value": 1,
+            "count": 125
+          }
+        ]
+      },
+      {
+        "name": "ejection_fraction",
+        "label": "Ejection Fraction",
+        "kind": "numeric",
+        "description": "Percentage of blood leaving the heart at each contraction.",
+        "missing": 0,
+        "unique": 17,
+        "min": 14,
+        "max": 80,
+        "mean": 38.08361204013378,
+        "median": 38.0,
+        "quantiles": {
+          "q1": 30.0,
+          "q3": 45.0
+        }
+      },
+      {
+        "name": "high_blood_pressure",
+        "label": "High Blood Pressure",
+        "kind": "binary",
+        "description": "Binary hypertension indicator.",
+        "missing": 0,
+        "unique": 2,
+        "min": 0,
+        "max": 1,
+        "mean": 0.3511705685618729,
+        "median": 0.0,
+        "categories": [
+          {
+            "value": 0,
+            "count": 194
+          },
+          {
+            "value": 1,
+            "count": 105
+          }
+        ]
+      },
+      {
+        "name": "platelets",
+        "label": "Platelets",
+        "kind": "numeric",
+        "description": "Platelet count.",
+        "missing": 0,
+        "unique": 176,
+        "min": 25100.0,
+        "max": 850000.0,
+        "mean": 263358.02926421404,
+        "median": 262000.0,
+        "quantiles": {
+          "q1": 212500.0,
+          "q3": 303500.0
+        }
+      },
+      {
+        "name": "serum_creatinine",
+        "label": "Serum Creatinine",
+        "kind": "numeric",
+        "description": "Serum creatinine level.",
+        "missing": 0,
+        "unique": 40,
+        "min": 0.5,
+        "max": 9.4,
+        "mean": 1.3938795986622072,
+        "median": 1.1,
+        "quantiles": {
+          "q1": 0.9,
+          "q3": 1.4
+        }
+      },
+      {
+        "name": "serum_sodium",
+        "label": "Serum Sodium",
+        "kind": "numeric",
+        "description": "Serum sodium level.",
+        "missing": 0,
+        "unique": 27,
+        "min": 113,
+        "max": 148,
+        "mean": 136.62541806020067,
+        "median": 137.0,
+        "quantiles": {
+          "q1": 134.0,
+          "q3": 140.0
+        }
+      },
+      {
+        "name": "sex",
+        "label": "Sex",
+        "kind": "binary",
+        "description": "Binary sex indicator as supplied by the dataset.",
+        "missing": 0,
+        "unique": 2,
+        "min": 0,
+        "max": 1,
+        "mean": 0.6488294314381271,
+        "median": 1.0,
+        "categories": [
+          {
+            "value": 0,
+            "count": 105
+          },
+          {
+            "value": 1,
+            "count": 194
+          }
+        ]
+      },
+      {
+        "name": "smoking",
+        "label": "Smoking",
+        "kind": "binary",
+        "description": "Binary smoking indicator.",
+        "missing": 0,
+        "unique": 2,
+        "min": 0,
+        "max": 1,
+        "mean": 0.3210702341137124,
+        "median": 0.0,
+        "categories": [
+          {
+            "value": 0,
+            "count": 203
+          },
+          {
+            "value": 1,
+            "count": 96
+          }
+        ]
+      },
+      {
+        "name": "time",
+        "label": "Time",
+        "kind": "numeric",
+        "description": "Follow-up period in days.",
+        "missing": 0,
+        "unique": 148,
+        "min": 4,
+        "max": 285,
+        "mean": 130.2608695652174,
+        "median": 115.0,
+        "quantiles": {
+          "q1": 73.0,
+          "q3": 203.0
+        }
+      }
+    ],
+    "numerical_features": [
+      "age",
+      "creatinine_phosphokinase",
+      "ejection_fraction",
+      "platelets",
+      "serum_creatinine",
+      "serum_sodium",
+      "time"
+    ],
+    "categorical_features": [
+      "anaemia",
+      "diabetes",
+      "high_blood_pressure",
+      "sex",
+      "smoking"
+    ]
+  },
+  "preprocessing": {
+    "target_separated": "DEATH_EVENT",
+    "missing_value_handling": "Checked; no missing values were found in the supplied dataset.",
+    "duplicate_handling": "Checked; no duplicate rows were found in the supplied dataset.",
+    "split": "train_test_split(test_size=0.20, stratify=y, random_state=42)",
+    "train_rows": 239,
+    "test_rows": 60,
+    "gradient_boosting_transform": "Raw numeric predictors are passed to the tree ensemble; no scaling or one-hot encoding is applied.",
+    "other_models": "Logistic Regression uses StandardScaler; Decision Tree and Gradient Boosting use raw numeric predictors.",
+    "steps": [
+      "Separate DEATH_EVENT from the 12 predictors.",
+      "Check missing values and duplicate rows.",
+      "Create an 80/20 stratified train/test split with random seed 42.",
+      "Keep the held-out test set untouched during Gradient Boosting tuning.",
+      "Pass raw numeric predictors to the tree-based models."
+    ]
+  },
+  "model": {
+    "name": "Tuned Gradient Boosting",
+    "class": "sklearn.ensemble.GradientBoostingClassifier",
+    "parameters": {
+      "subsample": 0.7,
+      "n_estimators": 100,
+      "min_samples_leaf": 12,
+      "max_depth": 1,
+      "learning_rate": 0.05
+    },
+    "feature_names": [
+      "age",
+      "anaemia",
+      "creatinine_phosphokinase",
+      "diabetes",
+      "ejection_fraction",
+      "high_blood_pressure",
+      "platelets",
+      "serum_creatinine",
+      "serum_sodium",
+      "sex",
+      "smoking",
+      "time"
+    ],
+    "feature_importances": {
+      "age": 0.012170950437210075,
+      "anaemia": 0.0,
+      "creatinine_phosphokinase": 0.012509106682248363,
+      "diabetes": 0.0,
+      "ejection_fraction": 0.16502138449405138,
+      "high_blood_pressure": 0.0,
+      "platelets": 0.012245963562415958,
+      "serum_creatinine": 0.15209557158799514,
+      "serum_sodium": 0.0037954711700209855,
+      "sex": 0.0,
+      "smoking": 0.0,
+      "time": 0.6421615520660581
+    },
+    "estimator_count": 100,
+    "tree_summaries": [
+      {
+        "index": 1,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 2,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 3,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 66.5
+      },
+      {
+        "index": 4,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 5,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 67.5
+      },
+      {
+        "index": 6,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 67.5
+      },
+      {
+        "index": 7,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 52.0
+      },
+      {
+        "index": 8,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 9,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 78.5
+      },
+      {
+        "index": 10,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.449999988079071
+      },
+      {
+        "index": 11,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 61.5
+      },
+      {
+        "index": 12,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 78.5
+      },
+      {
+        "index": 13,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 69.0
+      },
+      {
+        "index": 14,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 49.5
+      },
+      {
+        "index": 15,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 16,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.25
+      },
+      {
+        "index": 17,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.449999988079071
+      },
+      {
+        "index": 18,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 19,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 20,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 21,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 52.0
+      },
+      {
+        "index": 22,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 23,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 52.0
+      },
+      {
+        "index": 24,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.449999988079071
+      },
+      {
+        "index": 25,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 26,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.6500000357627869
+      },
+      {
+        "index": 27,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 28,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 77.5
+      },
+      {
+        "index": 29,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 30,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 78.5
+      },
+      {
+        "index": 31,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 32,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 49.5
+      },
+      {
+        "index": 33,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 22.5
+      },
+      {
+        "index": 34,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 183.0
+      },
+      {
+        "index": 35,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 52.0
+      },
+      {
+        "index": 36,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 37,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.449999988079071
+      },
+      {
+        "index": 38,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 67.5
+      },
+      {
+        "index": 39,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 49.0
+      },
+      {
+        "index": 40,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 22.5
+      },
+      {
+        "index": 41,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 183.0
+      },
+      {
+        "index": 42,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 78.5
+      },
+      {
+        "index": 43,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.449999988079071
+      },
+      {
+        "index": 44,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 49.0
+      },
+      {
+        "index": 45,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.3499999642372131
+      },
+      {
+        "index": 46,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 47,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 59.5
+      },
+      {
+        "index": 48,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.6500000357627869
+      },
+      {
+        "index": 49,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 50,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 183.0
+      },
+      {
+        "index": 51,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.550000011920929
+      },
+      {
+        "index": 52,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 22.5
+      },
+      {
+        "index": 53,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "age",
+        "root_threshold": 79.0
+      },
+      {
+        "index": 54,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 55,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.3499999642372131
+      },
+      {
+        "index": 56,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.449999988079071
+      },
+      {
+        "index": 57,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 58,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.050000011920929
+      },
+      {
+        "index": 59,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 32.5
+      },
+      {
+        "index": 60,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.1899999976158142
+      },
+      {
+        "index": 61,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 22.5
+      },
+      {
+        "index": 62,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "platelets",
+        "root_threshold": 219500.0
+      },
+      {
+        "index": 63,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 64,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.6500000357627869
+      },
+      {
+        "index": 65,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 32.5
+      },
+      {
+        "index": 66,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 52.0
+      },
+      {
+        "index": 67,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "age",
+        "root_threshold": 71.0
+      },
+      {
+        "index": 68,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "age",
+        "root_threshold": 71.0
+      },
+      {
+        "index": 69,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 183.0
+      },
+      {
+        "index": 70,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 71,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 72,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 27.5
+      },
+      {
+        "index": 73,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 74,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.75
+      },
+      {
+        "index": 75,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 183.0
+      },
+      {
+        "index": 76,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "creatinine_phosphokinase",
+        "root_threshold": 163.5
+      },
+      {
+        "index": 77,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 52.0
+      },
+      {
+        "index": 78,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 32.5
+      },
+      {
+        "index": 79,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 22.5
+      },
+      {
+        "index": 80,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.449999988079071
+      },
+      {
+        "index": 81,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 52.0
+      },
+      {
+        "index": 82,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 0.949999988079071
+      },
+      {
+        "index": 83,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "creatinine_phosphokinase",
+        "root_threshold": 1871.0
+      },
+      {
+        "index": 84,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "creatinine_phosphokinase",
+        "root_threshold": 232.0
+      },
+      {
+        "index": 85,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 73.5
+      },
+      {
+        "index": 86,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "ejection_fraction",
+        "root_threshold": 22.5
+      },
+      {
+        "index": 87,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 28.5
+      },
+      {
+        "index": 88,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 183.0
+      },
+      {
+        "index": 89,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "platelets",
+        "root_threshold": 224500.0
+      },
+      {
+        "index": 90,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "creatinine_phosphokinase",
+        "root_threshold": 152.5
+      },
+      {
+        "index": 91,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.8149999976158142
+      },
+      {
+        "index": 92,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_sodium",
+        "root_threshold": 136.5
+      },
+      {
+        "index": 93,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_creatinine",
+        "root_threshold": 1.3499999642372131
+      },
+      {
+        "index": 94,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "creatinine_phosphokinase",
+        "root_threshold": 1831.5
+      },
+      {
+        "index": 95,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "age",
+        "root_threshold": 71.0
+      },
+      {
+        "index": 96,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 199.5
+      },
+      {
+        "index": 97,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "platelets",
+        "root_threshold": 332000.0
+      },
+      {
+        "index": 98,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "platelets",
+        "root_threshold": 227000.0
+      },
+      {
+        "index": 99,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "time",
+        "root_threshold": 52.0
+      },
+      {
+        "index": 100,
+        "depth": 1,
+        "leaves": 2,
+        "root_feature": "serum_sodium",
+        "root_threshold": 136.5
+      }
+    ],
+    "concept_note": "Tree structure metadata is from the fitted ensemble. The sequential correction arrows in the UI are a conceptual explanation; this artifact does not claim a simplified tree score is the estimator's exact internal score."
+  },
+  "models": [
+    {
+      "name": "Majority baseline",
+      "metrics_at_050": {
+        "accuracy": 0.6833333333333333,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "balanced_accuracy": 0.5,
+        "roc_auc": 0.5,
+        "pr_auc": 0.31666666666666665,
+        "tn": 41,
+        "fp": 0,
+        "fn": 19,
+        "tp": 0
+      },
+      "metrics_at_035": {
+        "accuracy": 0.6833333333333333,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "balanced_accuracy": 0.5,
+        "roc_auc": 0.5,
+        "pr_auc": 0.31666666666666665,
+        "tn": 41,
+        "fp": 0,
+        "fn": 19,
+        "tp": 0
+      }
+    },
+    {
+      "name": "Logistic Regression",
+      "metrics_at_050": {
+        "accuracy": 0.8166666666666667,
+        "precision": 0.7857142857142857,
+        "recall": 0.5789473684210527,
+        "f1": 0.6666666666666666,
+        "specificity": 0.926829268292683,
+        "balanced_accuracy": 0.7528883183568678,
+        "roc_auc": 0.858793324775353,
+        "pr_auc": 0.7566735117525123,
+        "tn": 38,
+        "fp": 3,
+        "fn": 8,
+        "tp": 11
+      },
+      "metrics_at_035": {
+        "accuracy": 0.8,
+        "precision": 0.7333333333333333,
+        "recall": 0.5789473684210527,
+        "f1": 0.6470588235294118,
+        "specificity": 0.9024390243902439,
+        "balanced_accuracy": 0.7406931964056482,
+        "roc_auc": 0.858793324775353,
+        "pr_auc": 0.7566735117525123,
+        "tn": 37,
+        "fp": 4,
+        "fn": 8,
+        "tp": 11
+      }
+    },
+    {
+      "name": "Decision Tree",
+      "metrics_at_050": {
+        "accuracy": 0.8333333333333334,
+        "precision": 0.8461538461538461,
+        "recall": 0.5789473684210527,
+        "f1": 0.6875,
+        "specificity": 0.9512195121951219,
+        "balanced_accuracy": 0.7650834403080873,
+        "roc_auc": 0.8632862644415917,
+        "pr_auc": 0.775805967911231,
+        "tn": 39,
+        "fp": 2,
+        "fn": 8,
+        "tp": 11
+      },
+      "metrics_at_035": {
+        "accuracy": 0.8333333333333334,
+        "precision": 0.8461538461538461,
+        "recall": 0.5789473684210527,
+        "f1": 0.6875,
+        "specificity": 0.9512195121951219,
+        "balanced_accuracy": 0.7650834403080873,
+        "roc_auc": 0.8632862644415917,
+        "pr_auc": 0.775805967911231,
+        "tn": 39,
+        "fp": 2,
+        "fn": 8,
+        "tp": 11
+      }
+    },
+    {
+      "name": "Tuned Gradient Boosting",
+      "metrics_at_050": {
+        "accuracy": 0.8166666666666667,
+        "precision": 0.9,
+        "recall": 0.47368421052631576,
+        "f1": 0.6206896551724138,
+        "specificity": 0.975609756097561,
+        "balanced_accuracy": 0.7246469833119383,
+        "roc_auc": 0.8985879332477535,
+        "pr_auc": 0.8167643655464472,
+        "tn": 40,
+        "fp": 1,
+        "fn": 10,
+        "tp": 9
+      },
+      "metrics_at_035": {
+        "accuracy": 0.8333333333333334,
+        "precision": 0.8461538461538461,
+        "recall": 0.5789473684210527,
+        "f1": 0.6875,
+        "specificity": 0.9512195121951219,
+        "balanced_accuracy": 0.7650834403080873,
+        "roc_auc": 0.8985879332477535,
+        "pr_auc": 0.8167643655464472,
+        "tn": 39,
+        "fp": 2,
+        "fn": 8,
+        "tp": 11
+      }
+    }
+  ],
+  "selected_model": "Tuned Gradient Boosting",
+  "thresholds": {
+    "default": 0.5,
+    "analysis": 0.35,
+    "slider_min": 0.1,
+    "slider_max": 0.9
+  },
+  "validation": {
+    "tuning_method": "RandomizedSearchCV",
+    "folds": 5,
+    "stratified": true,
+    "scoring": "recall",
+    "best_cv_recall": 0.7550000000000001,
+    "test_set_used_during_tuning": false,
+    "top_cv_results": [
+      {
+        "rank": 1,
+        "mean_recall": 0.7550000000000001,
+        "std_recall": 0.10074031522241289,
+        "parameters": {
+          "subsample": 0.7,
+          "n_estimators": 100,
+          "min_samples_leaf": 12,
+          "max_depth": 1,
+          "learning_rate": 0.05
+        }
+      },
+      {
+        "rank": 2,
+        "mean_recall": 0.7408333333333333,
+        "std_recall": 0.10943034314119646,
+        "parameters": {
+          "subsample": 0.7,
+          "n_estimators": 75,
+          "min_samples_leaf": 12,
+          "max_depth": 1,
+          "learning_rate": 0.1
+        }
+      },
+      {
+        "rank": 3,
+        "mean_recall": 0.7283333333333333,
+        "std_recall": 0.07252394240678195,
+        "parameters": {
+          "subsample": 0.7,
+          "n_estimators": 100,
+          "min_samples_leaf": 4,
+          "max_depth": 2,
+          "learning_rate": 0.15
+        }
+      },
+      {
+        "rank": 4,
+        "mean_recall": 0.7158333333333333,
+        "std_recall": 0.0716085035298028,
+        "parameters": {
+          "subsample": 1.0,
+          "n_estimators": 150,
+          "min_samples_leaf": 4,
+          "max_depth": 2,
+          "learning_rate": 0.02
+        }
+      },
+      {
+        "rank": 5,
+        "mean_recall": 0.7150000000000001,
+        "std_recall": 0.11379196417634733,
+        "parameters": {
+          "subsample": 1.0,
+          "n_estimators": 75,
+          "min_samples_leaf": 12,
+          "max_depth": 1,
+          "learning_rate": 0.1
+        }
+      },
+      {
+        "rank": 5,
+        "mean_recall": 0.7150000000000001,
+        "std_recall": 0.047769702159888405,
+        "parameters": {
+          "subsample": 0.7,
+          "n_estimators": 75,
+          "min_samples_leaf": 8,
+          "max_depth": 3,
+          "learning_rate": 0.05
+        }
+      },
+      {
+        "rank": 7,
+        "mean_recall": 0.715,
+        "std_recall": 0.11379196417634733,
+        "parameters": {
+          "subsample": 0.7,
+          "n_estimators": 100,
+          "min_samples_leaf": 4,
+          "max_depth": 1,
+          "learning_rate": 0.15
+        }
+      },
+      {
+        "rank": 8,
+        "mean_recall": 0.7025,
+        "std_recall": 0.05995368582868318,
+        "parameters": {
+          "subsample": 0.7,
+          "n_estimators": 200,
+          "min_samples_leaf": 2,
+          "max_depth": 2,
+          "learning_rate": 0.02
+        }
+      },
+      {
+        "rank": 8,
+        "mean_recall": 0.7025,
+        "std_recall": 0.08455767262643883,
+        "parameters": {
+          "subsample": 0.85,
+          "n_estimators": 150,
+          "min_samples_leaf": 2,
+          "max_depth": 2,
+          "learning_rate": 0.02
+        }
+      },
+      {
+        "rank": 8,
+        "mean_recall": 0.7025,
+        "std_recall": 0.08455767262643883,
+        "parameters": {
+          "subsample": 1.0,
+          "n_estimators": 50,
+          "min_samples_leaf": 2,
+          "max_depth": 2,
+          "learning_rate": 0.08
+        }
+      }
+    ]
+  },
+  "explainability": {
+    "available": true,
+    "method": "Exact tree-path additive decomposition of the fitted Gradient Boosting decision score.",
+    "scale": "raw decision-score / log-odds scale, before the sigmoid probability transform",
+    "identity": "For every exported record: decision_score = baseline_score + sum(feature_contributions). The baseline includes the fitted initial raw score and tree-root corrections.",
+    "note": "A contribution shows how the fitted model's tree paths moved its decision score for this record. It is model behavior, not causation."
+  },
+  "test_predictions": [
+    {
+      "row_index": 274,
+      "record_number": 275,
+      "features": {
+        "age": 60.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 257.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 150000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 137.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 245.0
+      },
+      "actual": 0,
+      "probability": 0.07392309182445755,
+      "decision_score": -2.5279320322943364,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.046004305037233226,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.07392309182445755
+      }
+    },
+    {
+      "row_index": 149,
+      "record_number": 150,
+      "features": {
+        "age": 60.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 2261.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 228000.0,
+        "serum_creatinine": 0.9,
+        "serum_sodium": 136.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 115.0
+      },
+      "actual": 0,
+      "probability": 0.10743158890992952,
+      "decision_score": -2.11724889904018,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.25272767899948356,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.23611991700664012,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.10743158890992952
+      }
+    },
+    {
+      "row_index": 120,
+      "record_number": 121,
+      "features": {
+        "age": 60.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 737.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 60.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 210000.0,
+        "serum_creatinine": 1.5,
+        "serum_sodium": 135.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 95.0
+      },
+      "actual": 0,
+      "probability": 0.23841270165333855,
+      "decision_score": -1.1614015932278814,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": 0.5467122886586232,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.10247690961834478,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.23841270165333855
+      }
+    },
+    {
+      "row_index": 226,
+      "record_number": 227,
+      "features": {
+        "age": 58.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 57.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 25.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 189000.0,
+        "serum_creatinine": 1.3,
+        "serum_sodium": 132.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 205.0
+      },
+      "actual": 0,
+      "probability": 0.21161752339229212,
+      "decision_score": -1.3152028381881056,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": 0.7843307640587526,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.1528646306257248,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.1058699717172951,
+        "Decision Tree": 0.29411764705882354,
+        "Tuned Gradient Boosting": 0.21161752339229212
+      }
+    },
+    {
+      "row_index": 125,
+      "record_number": 126,
+      "features": {
+        "age": 43.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 358.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 50.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 237000.0,
+        "serum_creatinine": 1.3,
+        "serum_sodium": 135.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 97.0
+      },
+      "actual": 0,
+      "probability": 0.11417755820601459,
+      "decision_score": -2.048761761397229,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.1528646306257248,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.0928438679452804,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.11417755820601459
+      }
+    },
+    {
+      "row_index": 298,
+      "record_number": 299,
+      "features": {
+        "age": 50.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 196.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 45.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 395000.0,
+        "serum_creatinine": 1.6,
+        "serum_sodium": 136.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 285.0
+      },
+      "actual": 0,
+      "probability": 0.148286898866819,
+      "decision_score": -1.7481008312187494,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.003455118008320265,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": 0.6297258957685793,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.002687211833869796,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.148286898866819
+      }
+    },
+    {
+      "row_index": 130,
+      "record_number": 131,
+      "features": {
+        "age": 53.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 1808.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 60.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 249000.0,
+        "serum_creatinine": 0.7,
+        "serum_sodium": 138.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 106.0
+      },
+      "actual": 0,
+      "probability": 0.08242964437059638,
+      "decision_score": -2.409784124877972,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.04373284381113326,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.08242964437059638
+      }
+    },
+    {
+      "row_index": 110,
+      "record_number": 111,
+      "features": {
+        "age": 85.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 129.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 60.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 306000.0,
+        "serum_creatinine": 1.2,
+        "serum_sodium": 132.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 90.0
+      },
+      "actual": 1,
+      "probability": 0.12062308511951536,
+      "decision_score": -1.986542920537108,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.25918078480383133,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.24737751182275525,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.1339691372376791,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.12062308511951536
+      }
+    },
+    {
+      "row_index": 275,
+      "record_number": 276,
+      "features": {
+        "age": 45.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 422000.0,
+        "serum_creatinine": 0.8,
+        "serum_sodium": 137.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 245.0
+      },
+      "actual": 0,
+      "probability": 0.055082599460754854,
+      "decision_score": -2.8422636498133307,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.00659978195570687,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.055082599460754854
+      }
+    },
+    {
+      "row_index": 190,
+      "record_number": 191,
+      "features": {
+        "age": 80.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 350000.0,
+        "serum_creatinine": 2.1,
+        "serum_sodium": 134.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 174.0
+      },
+      "actual": 0,
+      "probability": 0.3622040620339486,
+      "decision_score": -0.5658106254562002,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.25918078480383133,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.27684402815420345,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.3622040620339486
+      }
+    },
+    {
+      "row_index": 213,
+      "record_number": 214,
+      "features": {
+        "age": 48.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 131.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 244000.0,
+        "serum_creatinine": 1.6,
+        "serum_sodium": 130.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 193.0
+      },
+      "actual": 1,
+      "probability": 0.15352875565041288,
+      "decision_score": -1.7071883482325274,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": 0.6297258957685793,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.1538622030867007
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.1620919440243931,
+        "Decision Tree": 0.6111111111111112,
+        "Tuned Gradient Boosting": 0.15352875565041288
+      }
+    },
+    {
+      "row_index": 68,
+      "record_number": 69,
+      "features": {
+        "age": 70.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 161.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 25.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 244000.0,
+        "serum_creatinine": 1.2,
+        "serum_sodium": 142.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 66.0
+      },
+      "actual": 1,
+      "probability": 0.6718586060344643,
+      "decision_score": 0.7166033160381045,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.050406950522946734,
+        "diabetes": 0.0,
+        "ejection_fraction": 0.7843307640587526,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.24737751182275525,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 1.1387163653641788
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.6681856127439907,
+        "Decision Tree": 0.3,
+        "Tuned Gradient Boosting": 0.6718586060344643
+      }
+    },
+    {
+      "row_index": 140,
+      "record_number": 141,
+      "features": {
+        "age": 80.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 805.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 263358.03,
+        "serum_creatinine": 1.1,
+        "serum_sodium": 134.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 109.0
+      },
+      "actual": 1,
+      "probability": 0.13014979969885784,
+      "decision_score": -1.899634920824287,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.25918078480383133,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.2905210060360821,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.13014979969885784
+      }
+    },
+    {
+      "row_index": 264,
+      "record_number": 265,
+      "features": {
+        "age": 61.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 147000.0,
+        "serum_creatinine": 1.2,
+        "serum_sodium": 141.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 237.0
+      },
+      "actual": 0,
+      "probability": 0.07337513057908442,
+      "decision_score": -2.535963754298445,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.24737751182275525,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.02301549070923163,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.07337513057908442
+      }
+    },
+    {
+      "row_index": 113,
+      "record_number": 114,
+      "features": {
+        "age": 70.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 143.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 60.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 351000.0,
+        "serum_creatinine": 1.3,
+        "serum_sodium": 137.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 90.0
+      },
+      "actual": 1,
+      "probability": 0.09695617032624795,
+      "decision_score": -2.231512066003104,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.1528646306257248,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.10029140761148599,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.09695617032624795
+      }
+    },
+    {
+      "row_index": 119,
+      "record_number": 120,
+      "features": {
+        "age": 86.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 263358.03,
+        "serum_creatinine": 1.83,
+        "serum_sodium": 134.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 95.0
+      },
+      "actual": 1,
+      "probability": 0.3495334237207852,
+      "decision_score": -0.6210907249829317,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.25918078480383133,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.6219736391358466,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.3495334237207852
+      }
+    },
+    {
+      "row_index": 148,
+      "record_number": 149,
+      "features": {
+        "age": 75.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 225000.0,
+        "serum_creatinine": 1.83,
+        "serum_sodium": 134.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 113.0
+      },
+      "actual": 1,
+      "probability": 0.371451756651191,
+      "decision_score": -0.5259937898299992,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.16848106501943624,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.009489743094752458,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.5388825682275066,
+        "Decision Tree": 0.6111111111111112,
+        "Tuned Gradient Boosting": 0.371451756651191
+      }
+    },
+    {
+      "row_index": 16,
+      "record_number": 17,
+      "features": {
+        "age": 87.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 149.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 262000.0,
+        "serum_creatinine": 0.9,
+        "serum_sodium": 140.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 14.0
+      },
+      "actual": 1,
+      "probability": 0.6969128715188959,
+      "decision_score": 0.8326400810354175,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.25918078480383133,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 2.347358981440953
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.7253136629033532,
+        "Decision Tree": 0.85,
+        "Tuned Gradient Boosting": 0.6969128715188959
+      }
+    },
+    {
+      "row_index": 282,
+      "record_number": 283,
+      "features": {
+        "age": 42.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 64.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 215000.0,
+        "serum_creatinine": 3.8,
+        "serum_sodium": 128.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 250.0
+      },
+      "actual": 0,
+      "probability": 0.22294173018590463,
+      "decision_score": -1.2486049031808737,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.09160314661476697,
+        "Decision Tree": 0.6111111111111112,
+        "Tuned Gradient Boosting": 0.22294173018590463
+      }
+    },
+    {
+      "row_index": 205,
+      "record_number": 206,
+      "features": {
+        "age": 50.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 167.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 45.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 362000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 136.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 187.0
+      },
+      "actual": 0,
+      "probability": 0.0650844316539702,
+      "decision_score": -2.6647708484626222,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.003455118008320265,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.1538622030867007
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.030252379195226338,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.0650844316539702
+      }
+    },
+    {
+      "row_index": 85,
+      "record_number": 86,
+      "features": {
+        "age": 51.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 78.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 50.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 406000.0,
+        "serum_creatinine": 0.7,
+        "serum_sodium": 140.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 79.0
+      },
+      "actual": 0,
+      "probability": 0.07587068092499642,
+      "decision_score": -2.4998216933567523,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.04200199489255537,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.07587068092499642
+      }
+    },
+    {
+      "row_index": 267,
+      "record_number": 268,
+      "features": {
+        "age": 56.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 135.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 133000.0,
+        "serum_creatinine": 1.7,
+        "serum_sodium": 140.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 244.0
+      },
+      "actual": 0,
+      "probability": 0.16752557040452012,
+      "decision_score": -1.6032665074368877,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": 0.8306374030443135,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.02660371877606774,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.16752557040452012
+      }
+    },
+    {
+      "row_index": 135,
+      "record_number": 136,
+      "features": {
+        "age": 75.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 40.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 263358.03,
+        "serum_creatinine": 1.18,
+        "serum_sodium": 137.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 107.0
+      },
+      "actual": 0,
+      "probability": 0.11075547833195225,
+      "decision_score": -2.083047376735777,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.16848106501943624,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.21709515390768797,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.11075547833195225
+      }
+    },
+    {
+      "row_index": 287,
+      "record_number": 288,
+      "features": {
+        "age": 45.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 55.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 543000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 132.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 250.0
+      },
+      "actual": 0,
+      "probability": 0.06371191007964164,
+      "decision_score": -2.6875517009728327,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.0027521604312059603,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.06371191007964164
+      }
+    },
+    {
+      "row_index": 254,
+      "record_number": 255,
+      "features": {
+        "age": 53.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 446.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 60.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 263358.03,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 139.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 215.0
+      },
+      "actual": 0,
+      "probability": 0.055433366549599135,
+      "decision_score": -2.835544536626659,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.0031715658014679795,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.055433366549599135
+      }
+    },
+    {
+      "row_index": 129,
+      "record_number": 130,
+      "features": {
+        "age": 53.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 270.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 227000.0,
+        "serum_creatinine": 3.4,
+        "serum_sodium": 145.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 105.0
+      },
+      "actual": 0,
+      "probability": 0.27890785915254457,
+      "decision_score": -0.9498854516826858,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.009489743094752458,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.5820964929497754,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.27890785915254457
+      }
+    },
+    {
+      "row_index": 244,
+      "record_number": 245,
+      "features": {
+        "age": 54.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 264000.0,
+        "serum_creatinine": 1.8,
+        "serum_sodium": 134.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 213.0
+      },
+      "actual": 0,
+      "probability": 0.1848005528457857,
+      "decision_score": -1.4841556529434619,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": 0.8995011022901327,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.04623141491328605,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.1848005528457857
+      }
+    },
+    {
+      "row_index": 10,
+      "record_number": 11,
+      "features": {
+        "age": 75.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 81.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 368000.0,
+        "serum_creatinine": 4.0,
+        "serum_sodium": 131.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 10.0
+      },
+      "actual": 1,
+      "probability": 0.9075318558380836,
+      "decision_score": 2.2838644706101325,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.16848106501943624,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 2.347358981440953
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.9649351903656922,
+        "Decision Tree": 1.0,
+        "Tuned Gradient Boosting": 0.9075318558380836
+      }
+    },
+    {
+      "row_index": 183,
+      "record_number": 184,
+      "features": {
+        "age": 75.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 99.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 224000.0,
+        "serum_creatinine": 2.5,
+        "serum_sodium": 134.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 162.0
+      },
+      "actual": 1,
+      "probability": 0.32484946398915815,
+      "decision_score": -0.7315737950209474,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.16848106501943624,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.050077175167134585,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.23584768272799947,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.32484946398915815
+      }
+    },
+    {
+      "row_index": 86,
+      "record_number": 87,
+      "features": {
+        "age": 55.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 47.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 173000.0,
+        "serum_creatinine": 1.1,
+        "serum_sodium": 137.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 79.0
+      },
+      "actual": 0,
+      "probability": 0.0951829907633269,
+      "decision_score": -2.2519314661345584,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.26186003107846134,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.0951829907633269
+      }
+    },
+    {
+      "row_index": 179,
+      "record_number": 180,
+      "features": {
+        "age": 55.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 835.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 40.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 279000.0,
+        "serum_creatinine": 0.7,
+        "serum_sodium": 140.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 147.0
+      },
+      "actual": 0,
+      "probability": 0.08242964437059638,
+      "decision_score": -2.409784124877972,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.04825231869887002,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.08242964437059638
+      }
+    },
+    {
+      "row_index": 196,
+      "record_number": 197,
+      "features": {
+        "age": 45.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 263358.03,
+        "serum_creatinine": 1.18,
+        "serum_sodium": 137.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 185.0
+      },
+      "actual": 0,
+      "probability": 0.06239019482539102,
+      "decision_score": -2.709925747685459,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.1538622030867007
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.05701432797291472,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.06239019482539102
+      }
+    },
+    {
+      "row_index": 295,
+      "record_number": 296,
+      "features": {
+        "age": 55.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 1820.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 270000.0,
+        "serum_creatinine": 1.2,
+        "serum_sodium": 139.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 271.0
+      },
+      "actual": 0,
+      "probability": 0.061586557190518795,
+      "decision_score": -2.723747003183444,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.24737751182275525,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.010975272743502703,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.061586557190518795
+      }
+    },
+    {
+      "row_index": 65,
+      "record_number": 66,
+      "features": {
+        "age": 60.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 68.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 20.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 119000.0,
+        "serum_creatinine": 2.9,
+        "serum_sodium": 127.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 64.0
+      },
+      "actual": 1,
+      "probability": 0.9377566966065934,
+      "decision_score": 2.7124395765306573,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": 1.3215420401843263,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 1.1387163653641788
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.9188050902300494,
+        "Decision Tree": 1.0,
+        "Tuned Gradient Boosting": 0.9377566966065934
+      }
+    },
+    {
+      "row_index": 77,
+      "record_number": 78,
+      "features": {
+        "age": 42.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 102.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 40.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 237000.0,
+        "serum_creatinine": 1.2,
+        "serum_sodium": 140.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 74.0
+      },
+      "actual": 0,
+      "probability": 0.11970385211405134,
+      "decision_score": -1.995237589096688,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.24737751182275525,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.35226604478510887
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.18253424540361482,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.11970385211405134
+      }
+    },
+    {
+      "row_index": 17,
+      "record_number": 18,
+      "features": {
+        "age": 45.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 14.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 166000.0,
+        "serum_creatinine": 0.8,
+        "serum_sodium": 127.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 14.0
+      },
+      "actual": 1,
+      "probability": 0.9353823985962466,
+      "decision_score": 2.6724685869076596,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": 1.3215420401843263,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 2.347358981440953
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.8411684695357453,
+        "Decision Tree": 1.0,
+        "Tuned Gradient Boosting": 0.9353823985962466
+      }
+    },
+    {
+      "row_index": 49,
+      "record_number": 50,
+      "features": {
+        "age": 57.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 129.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 395000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 140.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 42.0
+      },
+      "actual": 1,
+      "probability": 0.652974649317102,
+      "decision_score": 0.6321404726487089,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 2.2118001954294497
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.5530547884211976,
+        "Decision Tree": 0.85,
+        "Tuned Gradient Boosting": 0.652974649317102
+      }
+    },
+    {
+      "row_index": 103,
+      "record_number": 104,
+      "features": {
+        "age": 42.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 5209.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 226000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 140.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 87.0
+      },
+      "actual": 0,
+      "probability": 0.12323285291972898,
+      "decision_score": -1.962165767516545,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.25272767899948356,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.009489743094752458,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.5032834214037901,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.12323285291972898
+      }
+    },
+    {
+      "row_index": 42,
+      "record_number": 43,
+      "features": {
+        "age": 70.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 571.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 45.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 185000.0,
+        "serum_creatinine": 1.2,
+        "serum_sodium": 139.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 33.0
+      },
+      "actual": 1,
+      "probability": 0.711345867983669,
+      "decision_score": 0.901929568008381,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.24737751182275525,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 2.2118001954294497
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.6341914395396537,
+        "Decision Tree": 0.85,
+        "Tuned Gradient Boosting": 0.711345867983669
+      }
+    },
+    {
+      "row_index": 20,
+      "record_number": 21,
+      "features": {
+        "age": 65.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 52.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 25.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 276000.0,
+        "serum_creatinine": 1.3,
+        "serum_sodium": 137.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 16.0
+      },
+      "actual": 0,
+      "probability": 0.8784414571670566,
+      "decision_score": 1.977753285118129,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": 0.7843307640587526,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.1528646306257248,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 2.347358981440953
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.8780060856010422,
+        "Decision Tree": 0.85,
+        "Tuned Gradient Boosting": 0.8784414571670566
+      }
+    },
+    {
+      "row_index": 230,
+      "record_number": 231,
+      "features": {
+        "age": 60.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 166.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 62000.0,
+        "serum_creatinine": 1.7,
+        "serum_sodium": 127.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 207.0
+      },
+      "actual": 1,
+      "probability": 0.21503186145809997,
+      "decision_score": -1.294856919137424,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.003455118008320265,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": 0.8306374030443135,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.13826019750859767,
+        "Decision Tree": 0.6111111111111112,
+        "Tuned Gradient Boosting": 0.21503186145809997
+      }
+    },
+    {
+      "row_index": 251,
+      "record_number": 252,
+      "features": {
+        "age": 55.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 572.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 231000.0,
+        "serum_creatinine": 0.8,
+        "serum_sodium": 143.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 215.0
+      },
+      "actual": 0,
+      "probability": 0.052275117966813944,
+      "decision_score": -2.897543749340062,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.03404234171998645,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.052275117966813944
+      }
+    },
+    {
+      "row_index": 291,
+      "record_number": 292,
+      "features": {
+        "age": 60.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 320.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 133000.0,
+        "serum_creatinine": 1.4,
+        "serum_sodium": 139.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 258.0
+      },
+      "actual": 0,
+      "probability": 0.09348213364048061,
+      "decision_score": -2.271840405190553,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": 0.016745837285136865,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.013173581401586068,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.09348213364048061
+      }
+    },
+    {
+      "row_index": 166,
+      "record_number": 167,
+      "features": {
+        "age": 53.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 196.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 60.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 220000.0,
+        "serum_creatinine": 0.7,
+        "serum_sodium": 133.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 134.0
+      },
+      "actual": 0,
+      "probability": 0.09612973589108462,
+      "decision_score": -2.240987142279452,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.003455118008320265,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.050077175167134585,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.015018988896844034,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.09612973589108462
+      }
+    },
+    {
+      "row_index": 189,
+      "record_number": 190,
+      "features": {
+        "age": 40.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 244.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 45.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 275000.0,
+        "serum_creatinine": 0.9,
+        "serum_sodium": 140.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 174.0
+      },
+      "actual": 0,
+      "probability": 0.08242964437059638,
+      "decision_score": -2.409784124877972,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.01494971866523894,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.08242964437059638
+      }
+    },
+    {
+      "row_index": 284,
+      "record_number": 285,
+      "features": {
+        "age": 50.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 54.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 40.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 279000.0,
+        "serum_creatinine": 0.8,
+        "serum_sodium": 141.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 250.0
+      },
+      "actual": 0,
+      "probability": 0.04552666895785724,
+      "decision_score": -3.042861417345574,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.004106447031111233,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.04552666895785724
+      }
+    },
+    {
+      "row_index": 222,
+      "record_number": 223,
+      "features": {
+        "age": 42.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 86.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 365000.0,
+        "serum_creatinine": 1.1,
+        "serum_sodium": 139.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 201.0
+      },
+      "actual": 0,
+      "probability": 0.05354534279315058,
+      "decision_score": -2.8721942399549154,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.018015624745157274,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.05354534279315058
+      }
+    },
+    {
+      "row_index": 63,
+      "record_number": 64,
+      "features": {
+        "age": 45.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 385000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 145.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 61.0
+      },
+      "actual": 1,
+      "probability": 0.41987583225095754,
+      "decision_score": -0.3232831328837352,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 1.2308881773388156
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.1665558381383691,
+        "Decision Tree": 0.3,
+        "Tuned Gradient Boosting": 0.41987583225095754
+      }
+    },
+    {
+      "row_index": 168,
+      "record_number": 169,
+      "features": {
+        "age": 65.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 40.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 270000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 138.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 140.0
+      },
+      "actual": 0,
+      "probability": 0.0872420005351568,
+      "decision_score": -2.347784912164569,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.17012868788917004,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.0872420005351568
+      }
+    },
+    {
+      "row_index": 35,
+      "record_number": 36,
+      "features": {
+        "age": 69.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 582.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 228000.0,
+        "serum_creatinine": 3.5,
+        "serum_sodium": 134.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 30.0
+      },
+      "actual": 1,
+      "probability": 0.88998897879382,
+      "decision_score": 2.090628525714871,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.052905189288786236,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 2.27543513834518
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.940413743973763,
+        "Decision Tree": 1.0,
+        "Tuned Gradient Boosting": 0.88998897879382
+      }
+    },
+    {
+      "row_index": 117,
+      "record_number": 118,
+      "features": {
+        "age": 85.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 102.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 60.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 507000.0,
+        "serum_creatinine": 3.2,
+        "serum_sodium": 138.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 94.0
+      },
+      "actual": 0,
+      "probability": 0.3092044855142206,
+      "decision_score": -0.8038410295888069,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.25918078480383133,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": 0.9727570157259096,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.3512147644372881,
+        "Decision Tree": 0.2857142857142857,
+        "Tuned Gradient Boosting": 0.3092044855142206
+      }
+    },
+    {
+      "row_index": 193,
+      "record_number": 194,
+      "features": {
+        "age": 73.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 231.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 160000.0,
+        "serum_creatinine": 1.18,
+        "serum_sodium": 142.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 180.0
+      },
+      "actual": 0,
+      "probability": 0.13884875023346616,
+      "decision_score": -1.82488494368392,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.16848106501943624,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.003455118008320265,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.21751885971704782,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.13884875023346616
+      }
+    },
+    {
+      "row_index": 246,
+      "record_number": 247,
+      "features": {
+        "age": 55.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 2017.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 25.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 314000.0,
+        "serum_creatinine": 1.1,
+        "serum_sodium": 138.0,
+        "sex": 1.0,
+        "smoking": 0.0,
+        "time": 214.0
+      },
+      "actual": 1,
+      "probability": 0.19726427626988807,
+      "decision_score": -1.4034812149737128,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.25272767899948356,
+        "diabetes": 0.0,
+        "ejection_fraction": 0.7843307640587526,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.05624078627358451,
+        "Decision Tree": 0.29411764705882354,
+        "Tuned Gradient Boosting": 0.19726427626988807
+      }
+    },
+    {
+      "row_index": 122,
+      "record_number": 123,
+      "features": {
+        "age": 60.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 96.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 38.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 228000.0,
+        "serum_creatinine": 0.75,
+        "serum_sodium": 140.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 95.0
+      },
+      "actual": 0,
+      "probability": 0.07208448914659277,
+      "decision_score": -2.555101792883484,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.2659454960582927,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.07208448914659277
+      }
+    },
+    {
+      "row_index": 242,
+      "record_number": 243,
+      "features": {
+        "age": 40.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 90.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 35.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 255000.0,
+        "serum_creatinine": 1.1,
+        "serum_sodium": 136.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 212.0
+      },
+      "actual": 0,
+      "probability": 0.055474375605551234,
+      "decision_score": -2.834761603354552,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.014369966654155849,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.055474375605551234
+      }
+    },
+    {
+      "row_index": 210,
+      "record_number": 211,
+      "features": {
+        "age": 70.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 212.0,
+        "diabetes": 1.0,
+        "ejection_fraction": 17.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 389000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 136.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 188.0
+      },
+      "actual": 0,
+      "probability": 0.2791450084243027,
+      "decision_score": -0.9487066055453245,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.003455118008320265,
+        "diabetes": 0.0,
+        "ejection_fraction": 1.3215420401843263,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.020177043058025305,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": 0.04430136683275409,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.1538622030867007
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.28563787292996623,
+        "Decision Tree": 0.29411764705882354,
+        "Tuned Gradient Boosting": 0.2791450084243027
+      }
+    },
+    {
+      "row_index": 172,
+      "record_number": 173,
+      "features": {
+        "age": 70.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 171.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 60.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 176000.0,
+        "serum_creatinine": 1.1,
+        "serum_sodium": 145.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 146.0
+      },
+      "actual": 0,
+      "probability": 0.10376593546782172,
+      "decision_score": -2.1560638694095124,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.003455118008320265,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.027863881447343974,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.10376593546782172
+      }
+    },
+    {
+      "row_index": 26,
+      "record_number": 27,
+      "features": {
+        "age": 95.0,
+        "anaemia": 1.0,
+        "creatinine_phosphokinase": 112.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 40.0,
+        "high_blood_pressure": 1.0,
+        "platelets": 196000.0,
+        "serum_creatinine": 1.0,
+        "serum_sodium": 138.0,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 24.0
+      },
+      "actual": 1,
+      "probability": 0.7469521532240201,
+      "decision_score": 1.0824225426338199,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": 0.25918078480383133,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.35917504526597066,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": 2.347358981440953
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.8382320733601958,
+        "Decision Tree": 0.85,
+        "Tuned Gradient Boosting": 0.7469521532240201
+      }
+    },
+    {
+      "row_index": 221,
+      "record_number": 222,
+      "features": {
+        "age": 65.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 118.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 50.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 194000.0,
+        "serum_creatinine": 1.1,
+        "serum_sodium": 145.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 200.0
+      },
+      "actual": 0,
+      "probability": 0.06067150582001108,
+      "decision_score": -2.7396910905966476,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": -0.09241247871672552,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.3945222027329733,
+        "high_blood_pressure": 0.0,
+        "platelets": 0.11232610630024287,
+        "serum_creatinine": -0.3057871801154467,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -1.226093126877377
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.012145038442125347,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.06067150582001108
+      }
+    },
+    {
+      "row_index": 145,
+      "record_number": 146,
+      "features": {
+        "age": 50.0,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 185.0,
+        "diabetes": 0.0,
+        "ejection_fraction": 30.0,
+        "high_blood_pressure": 0.0,
+        "platelets": 266000.0,
+        "serum_creatinine": 0.7,
+        "serum_sodium": 141.0,
+        "sex": 1.0,
+        "smoking": 1.0,
+        "time": 112.0
+      },
+      "actual": 0,
+      "probability": 0.08791161686738226,
+      "decision_score": -2.3394049407111153,
+      "base_score": -0.7419222339011954,
+      "contributions": {
+        "age": -0.042868605258832224,
+        "anaemia": 0.0,
+        "creatinine_phosphokinase": 0.003455118008320265,
+        "diabetes": 0.0,
+        "ejection_fraction": -0.2746929472856499,
+        "high_blood_pressure": 0.0,
+        "platelets": -0.07545714258475679,
+        "serum_creatinine": -0.42117425797937375,
+        "serum_sodium": -0.048411369294340686,
+        "sex": 0.0,
+        "smoking": 0.0,
+        "time": -0.7383335024152864
+      },
+      "all_model_probabilities": {
+        "Majority baseline": 0.0,
+        "Logistic Regression": 0.13221093714817334,
+        "Decision Tree": 0.032,
+        "Tuned Gradient Boosting": 0.08791161686738226
+      }
+    }
+  ]
+}

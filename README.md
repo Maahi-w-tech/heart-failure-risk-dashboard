@@ -1,4 +1,4 @@
-# Mini-Project 36: Predicting Heart-Failure Events with Gradient Boosting + Gradient Descent Lab
+# Mini-Project 36: Predicting Heart-Failure Events with Gradient Boosting
 
 This project predicts whether a patient dies during the follow-up period using the **UCI Heart Failure Clinical Records Dataset**. It is intentionally designed to satisfy the supplied 100-point mini-project rubric without becoming unnecessarily complex.
 
@@ -9,7 +9,8 @@ This project predicts whether a patient dies during the follow-up period using t
 - `presentation.md` — 10-slide presentation outline with speaker notes.
 - `requirements.txt` — Python dependencies.
 - `results/` — generated metrics, tuning output, and figures after running the script.
-- `web/` — Vercel-ready interactive Gradient Descent Lab. It visualizes the training loop, shows how patient inputs become a probability, and lets users replay the weight updates in the browser.
+- `results/dashboard_data.json` — generated explainability artifact containing actual test probabilities, threshold metrics, model metadata, and record-level contributions.
+- `web/` — Vercel-ready interactive Heart Failure Risk Lab explainability platform. It consumes `web/data/dashboard_data.json`, the deployable copy of the actual Python pipeline artifact, and visualizes data, preprocessing, the fitted Gradient Boosting model, held-out probabilities, threshold behavior, evaluation, and record-level explanations.
 
 ## Project objective
 
@@ -35,7 +36,7 @@ The dashboard is a static client-side app, so it does not need Python, a databas
 3. Use the default static settings (no build command; output is the `web` folder), or set the framework preset to **Other**.
 4. Deploy.
 
-The web flow is intentionally ordered as **training loop → patient input → model output → algorithm glossary**. The dashboard uses a deliberately small, browser-side logistic-regression model trained with batch Gradient Descent. It exposes the standardized feature values, weights, weighted sum, sigmoid probability, cross-entropy loss, gradients, learning rate, threshold, and per-feature contributions so the full path from input to output is visible. The supplied demo uses six numeric predictors from the UCI dataset; a compatible uploaded binary-target CSV can be retrained locally. This browser implementation is deterministic and educational. The reproducible scikit-learn Gradient Boosting experiment remains available through `src/run_analysis.py`.
+The web flow is intentionally ordered as **dataset → validation → preprocessing → features → Gradient Boosting → probability → threshold → prediction → evaluation**. Running `python src/run_analysis.py` now also writes `results/dashboard_data.json` and the deployable copy `web/data/dashboard_data.json`. These artifacts contain actual test-set probabilities, threshold metrics, model parameters, tree metadata, global feature importance, cross-validation summary, and exact tree-path additive explanations for the held-out records. The frontend does not train a second model or fabricate patient data. Its optional CSV upload is an explorer-only preview; saved predictions and evaluation remain tied to the existing Python model run.
 
 ## Dataset source
 
